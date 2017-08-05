@@ -11,8 +11,8 @@ Desenvolvimento de um software utilizando a tecnologia QRCode e RFID para o moni
 
 
 
-### Configuração do Arduíno
+### Configurações do Arduíno
 ### Configuração das antenas RFID
 ### Conectando arduíno com java
-### Configuração do banco de dados MYSQL]
+### Configuração do banco de dados MYSQL
 
