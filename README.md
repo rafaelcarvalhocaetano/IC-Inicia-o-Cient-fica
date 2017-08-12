@@ -2,8 +2,9 @@
 
 Desenvolvimento de um software utilizando a tecnologia QRCode e RFID para o monitoramento e auxílio pedagógico para os alunos do curso de medicina da UNINOVE
 
-- [Configurações do Arduíno](#configurações-do-arduíno)
-  - [Programação para Arduíno](#programação-para-arduíno)
+- [Arduíno](#configurações-do-arduíno)
+    [Programação para Arduíno em C](#programação-para-arduíno-em-c)
+    [Programação para Arduíno em JAVA](#programação-para-arduíno-em-java)
 - [Configuração das antenas RFID](#configuração-das-antenas-rfid)
 - [Conectando arduíno com java](#conectando-arduíno-com-java)
 - [Configuração do banco de dados MYSQL](#configuração-do-banco-de-dados-mysql)
@@ -12,7 +13,10 @@ Desenvolvimento de um software utilizando a tecnologia QRCode e RFID para o moni
 
 
 
-### Configurações do Arduíno
+### Arduíno
+### Programação para Arduíno em C
+### Programação para Arduíno em JAVA
+
 ### Configuração das antenas RFID
 ### Conectando arduíno com java
 ### Configuração do banco de dados MYSQL
