@@ -14,8 +14,8 @@ Desenvolvimento de um software de controle de acesso, utilizando a tecnologia QR
 
 
 # Arduíno
-Programação para Arduíno em C
-Programação para Arduíno em JAVA
+   Programação para Arduíno em C
+   Programação para Arduíno em JAVA
 
 ### Configuração das antenas RFID
 ### Conectando arduíno com java
