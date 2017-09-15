@@ -5,6 +5,8 @@
  */
 package view;
 
+import controle.acesso.arduino.Arduino;
+
 /**
  *
  * @author Developer
@@ -42,7 +44,7 @@ public class Cadastro extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        nome4 = new javax.swing.JTextField();
+        id = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -114,11 +116,11 @@ public class Cadastro extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setText("ID");
 
-        nome4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        nome4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        nome4.addActionListener(new java.awt.event.ActionListener() {
+        id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        id.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nome4ActionPerformed(evt);
+                idActionPerformed(evt);
             }
         });
 
@@ -155,7 +157,7 @@ public class Cadastro extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jLabel8)
                                 .addGap(47, 47, 47)
-                                .addComponent(nome4)))
+                                .addComponent(id)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(CadastroViewLayout.createSequentialGroup()
                         .addContainerGap()
@@ -169,7 +171,7 @@ public class Cadastro extends javax.swing.JFrame {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(CadastroViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nome4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CadastroViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,9 +236,10 @@ public class Cadastro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void nome4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nome4ActionPerformed
+    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+        Arduino add = new Arduino("9600");
+        id.setText(add.read().toString());
+    }//GEN-LAST:event_idActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,6 +278,7 @@ public class Cadastro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CadastroView;
+    private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -288,7 +292,6 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JTextField nome1;
     private javax.swing.JTextField nome2;
     private javax.swing.JTextField nome3;
-    private javax.swing.JTextField nome4;
     private javax.swing.JComboBox<String> sexo;
     // End of variables declaration//GEN-END:variables
 }
