@@ -1,8 +1,11 @@
 #include <SPI.h>
 #include <MFRC522.h>
 
-#define RST_PIN         9          
-#define SS_PIN          10
+#define vermelho 7
+#define verde 6
+
+#define RST_PIN 9          
+#define SS_PIN 10
 
 
 
@@ -12,6 +15,8 @@ void setup(){
   Serial.begin(9600);
   SPI.begin();
   r.PCD_Init();
+  pinMode(vermelho, OUTPUT);
+  pinMode(verde, OUTPUT);
 }
 void loop(){
   leitura();
@@ -34,6 +39,16 @@ void leitura(){
 
   }
   Serial.println(conteudo);
+  if(conteudo == Serial.read()){
+    
+    digitalWrite(verde, HIGH);
+    delay(1000);
+    digitalWrite(verde, LOW);
+  }else{
+    digitalWrite(vermelho, HIGH);
+    delay(1000);
+    digitalWrite(vermelho, LOW);
+  }
   
 }
 
