@@ -5,7 +5,9 @@ import controle.acesso.bean.CadastroBean;
 import controle.acesso.factory.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,27 +15,34 @@ import java.sql.SQLException;
  */
 public class CadastroDAO {
 
-    public boolean selecionar(CadastroBean cb) {
-        try {
-            StringBuilder sql = new StringBuilder();
-            sql.append("SELECT id FROM arduino ");
+    public ArrayList<CadastroBean> listar() throws SQLException {
 
-            Connection c = Conexao.conexao();
-            PreparedStatement ps = c.prepareStatement(sql.toString());
-            
-            ps.setInt(1, cb.getId());
-            ps.executeQuery();
+		StringBuilder sql = new StringBuilder();
 
-            return true;
+		sql.append("SELECT id ");
+		sql.append("FROM arduino");
 
-        } catch (SQLException e) {
-            System.err.println("Ocorreu um erro ao selecionar "+e);
-            return false;
+		Connection conexao = Conexao.conexao();
+		PreparedStatement ps = conexao.prepareStatement(sql.toString());
 
-        }
+		ResultSet resultado = ps.executeQuery();
 
-    }
-    public static boolean save(CadastroBean cb){
+		ArrayList<CadastroBean> itens = new ArrayList<CadastroBean>();
+
+		while (resultado.next()) {
+
+			CadastroBean ca = new CadastroBean();
+
+			ca.setId(resultado.getString("id"));
+			
+			itens.add(ca);
+		}
+
+		return itens;
+
+	}
+    
+    public boolean salvar(CadastroBean cb){
         
         try {
             StringBuilder sql = new StringBuilder();
@@ -42,7 +51,7 @@ public class CadastroDAO {
             Connection c = Conexao.conexao();
             PreparedStatement ps = c.prepareStatement(sql.toString());
             
-            ps.setInt(1, cb.getId());
+            ps.setString(1, cb.getId());
             
             ps.executeUpdate();
             
@@ -53,13 +62,6 @@ public class CadastroDAO {
             return false;
         }
     }
-    /*
-    public static void main(String[] args) {
-        CadastroBean cb = new CadastroBean();
-        cb.setId(23232323);
-        
-        CadastroDAO dao = new CadastroDAO();
-        dao.save(cb);
-    }
-    */
 }
+
+ 

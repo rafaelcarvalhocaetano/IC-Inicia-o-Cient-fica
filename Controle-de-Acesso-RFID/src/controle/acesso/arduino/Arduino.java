@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.TooManyListenersException;
 
 /**
@@ -24,18 +25,29 @@ import java.util.TooManyListenersException;
  */
 public class Arduino implements SerialPortEventListener{
 
-    private SerialPort serialPort;
+     private SerialPort serialPort;
     private final String namePort;
 
     public Arduino(String portName) {
         this.namePort = portName;
     }
+
+    /**
+     * A BufferedReader which will be fed by a InputStreamReader converting the
+     * bytes into characters making the displayed results codepage independent
+     */
     private BufferedReader input;
-  
+    /**
+     * The output stream to the port
+     */
     private OutputStream output;
-  
+    /**
+     * Milliseconds to block while waiting for port open
+     */
     private static final int TIME_OUT = 2000;
-   
+    /**
+     * Default bits per second for COM port.
+     */
     private static final int DATA_RATE = 9600;
 
     private String inputLine;
@@ -81,7 +93,6 @@ public class Arduino implements SerialPortEventListener{
     }
 
     public void send(String data) {
-        //inserir no terminal
         try {
             output.write(data.getBytes());
         } catch (Exception e) {
@@ -90,12 +101,10 @@ public class Arduino implements SerialPortEventListener{
     }
 
     public String read() {
-        //leitura
         return inputLine;
     }
 
     public void sleep(int time) {
-        //tempo 
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
@@ -103,6 +112,10 @@ public class Arduino implements SerialPortEventListener{
         }
     }
 
+    /**
+     * This should be called when you stop using the port. This will prevent
+     * port locking on platforms like Linux.
+     */
     public synchronized void close() {
         if (serialPort != null) {
             serialPort.removeEventListener();
@@ -110,6 +123,11 @@ public class Arduino implements SerialPortEventListener{
         }
     }
 
+    /**
+     * Handle an event on the serial port. Read the data and print it.
+     *
+     * @param oEvent
+     */
     @Override
     public synchronized void serialEvent(SerialPortEvent oEvent) {
         if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
@@ -122,12 +140,8 @@ public class Arduino implements SerialPortEventListener{
         // Ignore all the other eventTypes, but you should consider the other ones.
     }
 
-    public void hashCode(int n) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    public void serialEvent(int n) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public String send(List d) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
