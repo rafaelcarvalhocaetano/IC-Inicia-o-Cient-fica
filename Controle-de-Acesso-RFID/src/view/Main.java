@@ -6,11 +6,7 @@
 package view;
 
 import controle.acesso.arduino.Arduino;
-import controle.acesso.bean.CadastroBean;
-import controle.acesso.dao.CadastroDAO;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -18,23 +14,22 @@ import java.util.logging.Logger;
  */
 public class Main extends javax.swing.JFrame {
     
-Arduino a = new Arduino("COM3");
+
   
     public Main() {
         initComponents();
-         a.initialize();
+        Arduino a = new Arduino("COM3");
          
-        CadastroDAO dao = new CadastroDAO();
-        CadastroBean cb = new CadastroBean();
-        
-    try {
-       
-        System.out.println("cadastro : "+dao.listar());
-    } catch (SQLException ex) {
-        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-    }
-        
-      
+        Thread t = new Thread(){
+            @Override
+            public void run() {
+                a.initialize();
+                while(true){
+                    id.setText(a.read());
+                }
+            }
+        };
+        t.start();
     }
     
     
@@ -49,15 +44,25 @@ Arduino a = new Arduino("COM3");
 
         id = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        cadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        id.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         id.setText("jLabel1");
 
         jButton1.setText("verificar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        cadastrar.setText("Cadastrar");
+        cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarActionPerformed(evt);
             }
         });
 
@@ -69,19 +74,23 @@ Arduino a = new Arduino("COM3");
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(216, 216, 216)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addGap(64, 64, 64)
+                        .addComponent(cadastrar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(308, Short.MAX_VALUE))
+                        .addGap(177, 177, 177)
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(49, 49, 49)
                 .addComponent(id)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(cadastrar))
                 .addGap(72, 72, 72))
         );
 
@@ -98,6 +107,12 @@ Arduino a = new Arduino("COM3");
        
          
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_cadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,6 +157,7 @@ Arduino a = new Arduino("COM3");
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cadastrar;
     private javax.swing.JLabel id;
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables

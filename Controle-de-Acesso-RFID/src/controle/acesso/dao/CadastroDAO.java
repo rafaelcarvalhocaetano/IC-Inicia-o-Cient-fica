@@ -42,7 +42,7 @@ public class CadastroDAO {
 
 	}
     
-    public boolean salvar(CadastroBean cb){
+    public void cadastrar(CadastroBean cb){
         
         try {
             StringBuilder sql = new StringBuilder();
@@ -55,11 +55,11 @@ public class CadastroDAO {
             
             ps.executeUpdate();
             
-            return true;
+            
                     
         } catch (SQLException e) {
             System.err.println("Erro ao inserir "+e);
-            return false;
+            
         }
     }
 }
