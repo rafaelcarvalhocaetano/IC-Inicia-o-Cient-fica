@@ -1,7 +1,7 @@
 # TCC - Trabalho de Conclusão de Curso
 
 
-- <h1>TÍTULO</h1>
+- TÍTULO
 
   Integração de Sistemas aplicando tecnologia RFID como controle de acesso.
 
