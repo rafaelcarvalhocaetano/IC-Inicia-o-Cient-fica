@@ -29,7 +29,7 @@
                       <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                      <Component id="cadastrar" min="-2" max="-2" attributes="0"/>
+                      <Component id="cc" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
@@ -48,7 +48,7 @@
               <EmptySpace pref="139" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cc" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
           </Group>
@@ -73,12 +73,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="cadastrar">
+    <Component class="javax.swing.JButton" name="cc">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cadastrar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ccActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

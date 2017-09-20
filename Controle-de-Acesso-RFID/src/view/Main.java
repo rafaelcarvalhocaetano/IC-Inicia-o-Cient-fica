@@ -6,6 +6,11 @@
 package view;
 
 import controle.acesso.arduino.Arduino;
+import controle.acesso.bean.Cadastro;
+import controle.acesso.dao.CadastroDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -44,7 +49,7 @@ public class Main extends javax.swing.JFrame {
 
         id = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        cadastrar = new javax.swing.JButton();
+        cc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,10 +64,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        cadastrar.setText("Cadastrar");
-        cadastrar.addActionListener(new java.awt.event.ActionListener() {
+        cc.setText("Cadastrar");
+        cc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarActionPerformed(evt);
+                ccActionPerformed(evt);
             }
         });
 
@@ -76,7 +81,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(216, 216, 216)
                         .addComponent(jButton1)
                         .addGap(64, 64, 64)
-                        .addComponent(cadastrar))
+                        .addComponent(cc))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(177, 177, 177)
                         .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -90,7 +95,7 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(cadastrar))
+                    .addComponent(cc))
                 .addGap(72, 72, 72))
         );
 
@@ -99,20 +104,13 @@ public class Main extends javax.swing.JFrame {
    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-       
-        
- 
-    
-      
-       
-         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
+    private void ccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ccActionPerformed
+    
+       
         
-        
-        
-    }//GEN-LAST:event_cadastrarActionPerformed
+    }//GEN-LAST:event_ccActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,7 +155,7 @@ public class Main extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cadastrar;
+    private javax.swing.JButton cc;
     private javax.swing.JLabel id;
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables

@@ -1,13 +1,15 @@
-
 package controle.acesso.dao;
 
-import controle.acesso.bean.CadastroBean;
+import controle.acesso.bean.Cadastro;
 import controle.acesso.factory.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,53 +17,49 @@ import java.util.ArrayList;
  */
 public class CadastroDAO {
 
-    public ArrayList<CadastroBean> listar() throws SQLException {
+    public ArrayList<Cadastro> listar() throws SQLException {
 
-		StringBuilder sql = new StringBuilder();
+        StringBuilder sql = new StringBuilder();
 
-		sql.append("SELECT id ");
-		sql.append("FROM arduino");
+        sql.append("SELECT id ");
+        sql.append("FROM arduino");
 
-		Connection conexao = Conexao.conexao();
-		PreparedStatement ps = conexao.prepareStatement(sql.toString());
+        Connection conexao = Conexao.conexao();
+        PreparedStatement ps = conexao.prepareStatement(sql.toString());
 
-		ResultSet resultado = ps.executeQuery();
+        ResultSet resultado = ps.executeQuery();
 
-		ArrayList<CadastroBean> itens = new ArrayList<CadastroBean>();
+        ArrayList<Cadastro> itens = new ArrayList<Cadastro>();
 
-		while (resultado.next()) {
+        while (resultado.next()) {
 
-			CadastroBean ca = new CadastroBean();
+            Cadastro ca = new Cadastro();
 
-			ca.setId(resultado.getString("id"));
-			
-			itens.add(ca);
-		}
+            ca.setId(resultado.getString("id"));
 
-		return itens;
-
-	}
-    
-    public void cadastrar(CadastroBean cb){
-        
-        try {
-            StringBuilder sql = new StringBuilder();
-            sql.append("INSERT INTO arduino (id) VALUES (?) ");
-            
-            Connection c = Conexao.conexao();
-            PreparedStatement ps = c.prepareStatement(sql.toString());
-            
-            ps.setString(1, cb.getId());
-            
-            ps.executeUpdate();
-            
-            
-                    
-        } catch (SQLException e) {
-            System.err.println("Erro ao inserir "+e);
-            
+            itens.add(ca);
         }
-    }
-}
 
- 
+        return itens;
+
+    }
+
+    public void salvar(Cadastro c) {
+
+        Connection con;
+        try {
+            
+            con = Conexao.conexao();
+            PreparedStatement ptt = con.prepareStatement("INSERT INTO arduino (id) VALUES (?)");
+            ptt.setString(1, c.getId());
+            ptt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "SALVO COM SUCESSO ...");
+            
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "ERRO AO SALVAR ...");
+        }
+
+    }
+
+}
