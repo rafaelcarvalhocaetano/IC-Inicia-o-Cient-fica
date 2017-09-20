@@ -38,17 +38,19 @@ void leitura(){
     conteudo.concat(String(r.uid.uidByte[i], HEX));
 
   }
-  Serial.println(conteudo);
-  if(conteudo == Serial.read()){
-    
-    digitalWrite(verde, HIGH);
+  char id = "a6 dd 68 8e";
+  if(conteudo==id){
+    digitalWrite(vermelho, HIGH);
     delay(1000);
     digitalWrite(verde, LOW);
   }else{
-    digitalWrite(vermelho, HIGH);
+    digitalWrite(verde, HIGH);
     delay(1000);
     digitalWrite(vermelho, LOW);
   }
+
+  Serial.println(conteudo);
+
   
 }
 
