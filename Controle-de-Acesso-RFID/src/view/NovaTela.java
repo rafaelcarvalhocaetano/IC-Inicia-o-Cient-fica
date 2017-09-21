@@ -26,13 +26,14 @@ public class NovaTela extends javax.swing.JFrame {
         btn_professor = new javax.swing.JLabel();
         btn_estudantes = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
+        btn_professor1 = new javax.swing.JLabel();
         home1 = new javax.swing.JPanel();
+        cadastrar = new javax.swing.JPanel();
         professor = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         estudantes = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        btn_professor1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(300, 100, 0, 0));
@@ -84,7 +85,29 @@ public class NovaTela extends javax.swing.JFrame {
             }
         });
 
+        btn_professor1.setBackground(new java.awt.Color(0, 150, 61));
+        btn_professor1.setFont(new java.awt.Font("Felix Titling", 1, 12)); // NOI18N
+        btn_professor1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_professor1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_professor1.setText("ESTUDANTE");
+        btn_professor1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_professor1MouseClicked(evt);
+            }
+        });
+
         home1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout cadastrarLayout = new javax.swing.GroupLayout(cadastrar);
+        cadastrar.setLayout(cadastrarLayout);
+        cadastrarLayout.setHorizontalGroup(
+            cadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        cadastrarLayout.setVerticalGroup(
+            cadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         professor.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -148,6 +171,11 @@ public class NovaTela extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(professor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(home1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(home1Layout.createSequentialGroup()
+                    .addGap(386, 386, 386)
+                    .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(387, Short.MAX_VALUE)))
         );
         home1Layout.setVerticalGroup(
             home1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,18 +185,12 @@ public class NovaTela extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(professor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(home1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(home1Layout.createSequentialGroup()
+                    .addGap(209, 209, 209)
+                    .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(210, Short.MAX_VALUE)))
         );
-
-        btn_professor1.setBackground(new java.awt.Color(0, 150, 61));
-        btn_professor1.setFont(new java.awt.Font("Felix Titling", 1, 12)); // NOI18N
-        btn_professor1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_professor1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btn_professor1.setText("ESTUDANTE");
-        btn_professor1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_professor1MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout homeLayout = new javax.swing.GroupLayout(home);
         home.setLayout(homeLayout);
@@ -273,6 +295,7 @@ public class NovaTela extends javax.swing.JFrame {
     private javax.swing.JLabel btn_estudantes;
     private javax.swing.JLabel btn_professor;
     private javax.swing.JLabel btn_professor1;
+    private javax.swing.JPanel cadastrar;
     private javax.swing.JLabel close;
     private javax.swing.JPanel estudantes;
     private javax.swing.JPanel home;
