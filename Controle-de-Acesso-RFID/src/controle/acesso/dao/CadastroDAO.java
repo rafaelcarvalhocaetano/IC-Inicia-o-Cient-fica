@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,20 +26,15 @@ public class CadastroDAO {
         PreparedStatement ps = conexao.prepareStatement(sql.toString());
 
         ResultSet resultado = ps.executeQuery();
-
         ArrayList<Cadastro> itens = new ArrayList<Cadastro>();
 
         while (resultado.next()) {
 
             Cadastro ca = new Cadastro();
-
             ca.setId(resultado.getString("id"));
-
             itens.add(ca);
         }
-
         return itens;
-
     }
 
     public void salvar(Cadastro c) {
