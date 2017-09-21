@@ -19,11 +19,7 @@ import java.util.logging.Logger;
  */
 public class Main extends javax.swing.JFrame {
     
-
-  
-    public Main() {
-        initComponents();
-        Arduino a = new Arduino("COM3");
+Arduino a = new Arduino("COM3");
          
         Thread t = new Thread(){
             @Override
@@ -34,6 +30,10 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         };
+  
+    public Main() {
+        initComponents();
+        
         t.start();
     }
     
@@ -108,7 +108,12 @@ public class Main extends javax.swing.JFrame {
 
     private void ccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ccActionPerformed
     
+       Cadastro c = new Cadastro();
+       CadastroDAO dao = new CadastroDAO();
        
+       c.setId(id.getText());
+       
+       dao.salvar(c);
         
     }//GEN-LAST:event_ccActionPerformed
 
