@@ -30,10 +30,10 @@ public class NovaTela extends javax.swing.JFrame {
         home1 = new javax.swing.JPanel();
         cadastrar = new javax.swing.JPanel();
         professor = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        estudantes = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        estudantes = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(300, 100, 0, 0));
@@ -111,28 +111,6 @@ public class NovaTela extends javax.swing.JFrame {
 
         professor.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 153, 0));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("TESTE DE PAGINAÇÃO");
-
-        javax.swing.GroupLayout professorLayout = new javax.swing.GroupLayout(professor);
-        professor.setLayout(professorLayout);
-        professorLayout.setHorizontalGroup(
-            professorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(professorLayout.createSequentialGroup()
-                .addGap(222, 222, 222)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(267, Short.MAX_VALUE))
-        );
-        professorLayout.setVerticalGroup(
-            professorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(professorLayout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(jLabel3)
-                .addContainerGap(315, Short.MAX_VALUE))
-        );
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -148,17 +126,47 @@ public class NovaTela extends javax.swing.JFrame {
         jTable1.setSelectionBackground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 153, 0));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("TESTE DE PAGINAÇÃO");
+
+        javax.swing.GroupLayout professorLayout = new javax.swing.GroupLayout(professor);
+        professor.setLayout(professorLayout);
+        professorLayout.setHorizontalGroup(
+            professorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(professorLayout.createSequentialGroup()
+                .addGap(222, 222, 222)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(267, Short.MAX_VALUE))
+            .addGroup(professorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(professorLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1)
+                    .addContainerGap()))
+        );
+        professorLayout.setVerticalGroup(
+            professorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(professorLayout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(jLabel3)
+                .addContainerGap(315, Short.MAX_VALUE))
+            .addGroup(professorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(professorLayout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(12, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout estudantesLayout = new javax.swing.GroupLayout(estudantes);
         estudantes.setLayout(estudantesLayout);
         estudantesLayout.setHorizontalGroup(
             estudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addGap(0, 873, Short.MAX_VALUE)
         );
         estudantesLayout.setVerticalGroup(
             estudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(estudantesLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 46, Short.MAX_VALUE))
+            .addGap(0, 519, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout home1Layout = new javax.swing.GroupLayout(home1);

@@ -27,7 +27,15 @@ public class ViewVertical extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         PainelControler = new javax.swing.JPanel();
         PainelMain = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
         PainelProfessor = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         PainelAlunos = new javax.swing.JPanel();
         PainelControle = new javax.swing.JPanel();
 
@@ -138,7 +146,7 @@ public class ViewVertical extends javax.swing.JFrame {
         PainelOpcoesLayout.setVerticalGroup(
             PainelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,33 +165,107 @@ public class ViewVertical extends javax.swing.JFrame {
 
         PainelControler.setBackground(new java.awt.Color(255, 255, 255));
 
-        PainelMain.setBackground(new java.awt.Color(255, 102, 255));
+        PainelMain.setBackground(new java.awt.Color(32, 81, 114));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("PAINEL PRINCIPAL");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel4.setText("logo");
 
         javax.swing.GroupLayout PainelMainLayout = new javax.swing.GroupLayout(PainelMain);
         PainelMain.setLayout(PainelMainLayout);
         PainelMainLayout.setHorizontalGroup(
             PainelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 652, Short.MAX_VALUE)
+            .addGroup(PainelMainLayout.createSequentialGroup()
+                .addGap(149, 149, 149)
+                .addComponent(jLabel4)
+                .addGap(47, 47, 47)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelMainLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                .addContainerGap())
         );
         PainelMainLayout.setVerticalGroup(
             PainelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(PainelMainLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(PainelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        PainelProfessor.setBackground(new java.awt.Color(0, 51, 255));
+        PainelProfessor.setBackground(new java.awt.Color(32, 81, 114));
+
+        jLabel5.setText("LOGO");
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("CONTROLE DE ACESSO DOS PROFESSORES");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout PainelProfessorLayout = new javax.swing.GroupLayout(PainelProfessor);
         PainelProfessor.setLayout(PainelProfessorLayout);
         PainelProfessorLayout.setHorizontalGroup(
             PainelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 632, Short.MAX_VALUE)
+            .addGroup(PainelProfessorLayout.createSequentialGroup()
+                .addGroup(PainelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PainelProfessorLayout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(jLabel5)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel6))
+                    .addGroup(PainelProfessorLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         PainelProfessorLayout.setVerticalGroup(
             PainelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
+            .addGroup(PainelProfessorLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(PainelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        PainelAlunos.setBackground(new java.awt.Color(51, 255, 51));
+        PainelAlunos.setBackground(new java.awt.Color(32, 81, 114));
 
         javax.swing.GroupLayout PainelAlunosLayout = new javax.swing.GroupLayout(PainelAlunos);
         PainelAlunos.setLayout(PainelAlunosLayout);
@@ -323,6 +405,14 @@ public class ViewVertical extends javax.swing.JFrame {
     private javax.swing.JLabel conexao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JLabel principal;
     private javax.swing.JLabel professores;
     private javax.swing.JLabel terceiros;
