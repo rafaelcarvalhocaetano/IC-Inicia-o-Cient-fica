@@ -688,7 +688,7 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
         SERIAL_PORT_NAME = (String) portas.getSelectedItem();
         portaSerialAux = (int) portaSerial.getSelectedItem();
         
-        if(iniciaSerial(SERIAL_PORT_NAME, portaSerialAux)){
+        if(inicia_serial(SERIAL_PORT_NAME, portaSerialAux)){
             
         }
     }//GEN-LAST:event_conectarMouseClicked
