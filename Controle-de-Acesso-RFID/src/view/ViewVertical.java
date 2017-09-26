@@ -87,13 +87,19 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
             buscaListPort = null;
             buscaListPort = CommPortIdentifier.getPortIdentifiers();
             idPorta = null;
-            CommPortIdentifier porta_atual = (CommPortIdentifier) buscaListPort.nextElement();
-            while(idPorta.getName().equals(serial_port_name) || porta_atual.getName().startsWith(serial_port_name)){
-                serialPort = (SerialPort) porta_atual.open(appName, timeOut);
-                idPorta = porta_atual;
-                System.out.println("ID PORTA "+idPorta.getName());
-                System.out.println("TAXA TRANSMISSÃO "+number_port);
-                break;
+            
+            while(idPorta == null || buscaListPort.hasMoreElements()){
+                
+                CommPortIdentifier porta_atual = (CommPortIdentifier) buscaListPort.nextElement(); 
+                if(porta_atual.getName().equals(serial_port_name) || porta_atual.getName().startsWith(serial_port_name)){
+                    serialPort = (SerialPort) porta_atual.open(appName, timeOut);
+                    idPorta = porta_atual;
+                    
+                    System.out.println("Conectado a porta serial: "+idPorta.getName());
+                    System.out.println("Taxa de transmissão: "+number_port);
+                    break;
+                }
+                
             }
             serialPort.setSerialPortParams(number_port, serialPort.DATABITS_8, serialPort.STOPBITS_1, serialPort.PARITY_NONE);
             serialPort.addEventListener(this);
@@ -106,6 +112,7 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
             }
         } catch (Exception e) {
             System.out.println("Erro em INICIA SERIAL");
+            e.printStackTrace();
             return false;
         }
         return status;
@@ -467,6 +474,11 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
         desconectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Logout Rounded Down Filled-38.png"))); // NOI18N
         desconectar.setText("DESCONECTAR");
         desconectar.setEnabled(false);
+        desconectar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                desconectarMouseClicked(evt);
+            }
+        });
 
         jLabel14.setBackground(new java.awt.Color(27, 64, 90));
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -685,13 +697,32 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
 
     private void conectarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_conectarMouseClicked
        
-        SERIAL_PORT_NAME = (String) portas.getSelectedItem();
-        portaSerialAux = (int) portaSerial.getSelectedItem();
+        SERIAL_PORT_NAME = (String) (portas.getSelectedItem());
+        portaSerialAux = Integer.parseInt((String) portaSerial.getSelectedItem());
         
         if(inicia_serial(SERIAL_PORT_NAME, portaSerialAux)){
+            portaSerial.setEnabled(false);
+            modeloPlca.setEnabled(false);
+            portas.setEnabled(false);
+            conectar.setEnabled(false);
+            desconectar.setEnabled(true);
+            buscarConexao.setEnabled(false);
+            info.setText("CONECTADO COM SUCESSO ... ");
             
         }
     }//GEN-LAST:event_conectarMouseClicked
+
+    private void desconectarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_desconectarMouseClicked
+        closeSerial();
+        portaSerial.setEnabled(true);
+        modeloPlca.setEnabled(true);
+            portas.setEnabled(true);
+            conectar.setEnabled(true);
+            desconectar.setEnabled(true);
+            buscarConexao.setEnabled(true);
+            info.setText("DESCONECTADO COM SUCESSO ... ");
+            System.out.println("--------DESCONECTADO--------");
+    }//GEN-LAST:event_desconectarMouseClicked
 
     public static void main(String args[]) {
        
