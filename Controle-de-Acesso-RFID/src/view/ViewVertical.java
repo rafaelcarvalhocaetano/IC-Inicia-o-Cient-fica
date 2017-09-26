@@ -104,6 +104,7 @@ public class ViewVertical extends javax.swing.JFrame {
         portas = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        info = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -393,10 +394,12 @@ public class ViewVertical extends javax.swing.JFrame {
         conectar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         conectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Data Transfer Filled-38.png"))); // NOI18N
         conectar.setText("CONECTAR");
+        conectar.setEnabled(false);
 
         desconectar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         desconectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Logout Rounded Down Filled-38.png"))); // NOI18N
         desconectar.setText("DESCONECTAR");
+        desconectar.setEnabled(false);
 
         jLabel14.setBackground(new java.awt.Color(27, 64, 90));
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -406,8 +409,12 @@ public class ViewVertical extends javax.swing.JFrame {
         jLabel14.setOpaque(true);
 
         modeloPlca.setBorder(null);
+        modeloPlca.setEnabled(false);
+
+        portaSerial.setEnabled(false);
 
         portas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        portas.setEnabled(false);
 
         jLabel18.setBackground(new java.awt.Color(27, 64, 90));
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -422,6 +429,9 @@ public class ViewVertical extends javax.swing.JFrame {
                 jLabel6MouseClicked(evt);
             }
         });
+
+        info.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        info.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout PConexaoLayout = new javax.swing.GroupLayout(PConexao);
         PConexao.setLayout(PConexaoLayout);
@@ -439,6 +449,7 @@ public class ViewVertical extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PConexaoLayout.createSequentialGroup()
                         .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(PConexaoLayout.createSequentialGroup()
                                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -446,12 +457,13 @@ public class ViewVertical extends javax.swing.JFrame {
                                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(modeloPlca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(portaSerial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(portas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(modeloPlca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(portaSerial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(portas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))))
                         .addGap(0, 42, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PConexaoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -479,7 +491,9 @@ public class ViewVertical extends javax.swing.JFrame {
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
+                .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buscarConexao)
                     .addComponent(conectar)
@@ -567,6 +581,17 @@ public class ViewVertical extends javax.swing.JFrame {
         for (int i = 0; i < portNameList.length; i++) {
             if(portNameList[i] != null){
                 portas.addItem(portNameList[i]);
+                
+                portaSerial.setEnabled(true);
+                modeloPlca.setEnabled(true);
+                portas.setEnabled(true);
+                conectar.setEnabled(true);
+                desconectar.setEnabled(true);
+                info.setText("Informe os valores e click em conectar");
+                
+                
+                
+                
                 numberSerial();
                 Modelo_Palca();
             }
@@ -590,6 +615,7 @@ public class ViewVertical extends javax.swing.JFrame {
     private javax.swing.JLabel buscarConexao;
     private javax.swing.JLabel conectar;
     private javax.swing.JLabel desconectar;
+    private javax.swing.JLabel info;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
