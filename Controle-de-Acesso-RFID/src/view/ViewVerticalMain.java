@@ -1,154 +1,29 @@
 package view;
 
-import gnu.io.*;
-import java.io.BufferedReader;
-import java.io.FileDescriptor;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.Enumeration;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Rafael Carvalho Caetano - TCC UNINOVE
  */
-public class ViewVertical extends javax.swing.JFrame implements SerialPortEventListener{
+public class ViewVerticalMain extends javax.swing.JFrame {
 
     
-    public ViewVertical() {
+    public ViewVerticalMain() {
         initComponents();
     }
     
-    private String[] portNameList;  //retorna uma lista de portas disponivel SO
-    private Enumeration buscaListPort; //tbm retorna uma lista de portas disponiveis
-    private CommPortIdentifier portaAtual;
-    private int portaSerialAux; //auxilia na conversão das portas seriais
-    private String serialPortaNameAux;
-    private CommPortIdentifier idPorta; //identificador da porta
-    private SerialPort serialPort;
-    private String appName = "Supervisorio";
-    private int timeOut = 1000; // tempo de espera da porta serial
-    private OutputStream output = null;
-    private BufferedReader input = null;
-    private String SERIAL_PORT_NAME;
-    private String leitura;
-    
-    
-    public String[] returnPort(){
-        int i = 0;        
-        buscaListPort = null;
-        buscaListPort = CommPortIdentifier.getPortIdentifiers();
-        portNameList = new String [10];
-        
-        while(buscaListPort.hasMoreElements()){
-            portaAtual = (CommPortIdentifier) buscaListPort.nextElement();
-            portNameList[i] = portaAtual.getName();
-            
-            i++;
-        }
-        return portNameList;        
-    }
-    
-    public void numberSerial(){
-        portaSerial.addItem("300");
-        portaSerial.addItem("1200");
-        portaSerial.addItem("2400");
-        portaSerial.addItem("4800");
-        portaSerial.addItem("9600");
-        portaSerial.addItem("19200");
-        portaSerial.addItem("38400");
-        portaSerial.addItem("57600");
-        portaSerial.addItem("115200");
-        portaSerial.addItem("230400");
-        portaSerial.addItem("250000");    
-    }
-    private void Modelo_Palca(){
-        modeloPlca.addItem("Arduino Yún");
-        modeloPlca.addItem("Arduino UNO");
-        modeloPlca.addItem("Arduino Duemilanove");
-        modeloPlca.addItem("Arduino Diecimila");
-        modeloPlca.addItem("Arduino Nano");
-        modeloPlca.addItem("Arduino Mega");
-        modeloPlca.addItem("Arduino Mega 2560");
-        modeloPlca.addItem("Arduino Mega ADK");
-        modeloPlca.addItem("Arduino Leonardo");
-        modeloPlca.addItem("Arduino Micro");
-        modeloPlca.addItem("Arduino Esplora");
-        modeloPlca.addItem("Arduino Mini");
-        modeloPlca.addItem("Arduino Ethernet");
-        modeloPlca.addItem("Arduino Fio");
-        modeloPlca.addItem("Arduino BT");
-       
-    }
-    
-    
-    public boolean inicia_serial(String serial_port_name, int number_port){
-        boolean status = false;
-        try {
-            buscaListPort = null;
-            buscaListPort = CommPortIdentifier.getPortIdentifiers();
-            idPorta = null;
-            
-            while(idPorta == null || buscaListPort.hasMoreElements()){
-                
-                CommPortIdentifier porta_atual = (CommPortIdentifier) buscaListPort.nextElement(); 
-                if(porta_atual.getName().equals(serial_port_name) || porta_atual.getName().startsWith(serial_port_name)){
-                    serialPort = (SerialPort) porta_atual.open(appName, timeOut);
-                    idPorta = porta_atual;
-                    
-                    System.out.println("Conectado a porta serial: "+idPorta.getName());
-                    System.out.println("Taxa de transmissão: "+number_port);
-                    break;
-                }
-                
-            }
-            serialPort.setSerialPortParams(number_port, serialPort.DATABITS_8, serialPort.STOPBITS_1, serialPort.PARITY_NONE);
-            serialPort.addEventListener(this);
-            serialPort.notifyOnDataAvailable(true);
-            
-            status = true;
-            
-            if(idPorta == null || serialPort == null){
-                return false;
-            }
-        } catch (Exception e) {
-            System.out.println("Erro em INICIA SERIAL");
-            e.printStackTrace();
-            return false;
-        }
-        return status;
-    }
-    
-    public void enviarDados(String dados){
-        try {
-            output = serialPort.getOutputStream();
-            output.write(dados.getBytes());
-            
-        } catch (Exception e) {
-            System.err.println(e.toString());
-        }
-    }
-    public synchronized void closeSerial(){
-        if(serialPort != null){
-            serialPort.removeEventListener();
-            serialPort.close();
-        }
-    }
-      
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         main = new javax.swing.JPanel();
         PInfor = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        btn_controle = new javax.swing.JLabel();
+        btn_aluno = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        btn_cadProfessores = new javax.swing.JLabel();
+        btn_cadastrarAluno = new javax.swing.JLabel();
         PAlunos = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -168,16 +43,18 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
         jLabel12 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        buscarConexao = new javax.swing.JLabel();
-        conectar = new javax.swing.JLabel();
-        desconectar = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        modeloPlca = new javax.swing.JComboBox<>();
-        portaSerial = new javax.swing.JComboBox<>();
-        portas = new javax.swing.JComboBox<>();
         lbInformacao = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         info = new javax.swing.JLabel();
+        txtCurso = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        txtRg = new javax.swing.JFormattedTextField();
+        txtCpf = new javax.swing.JFormattedTextField();
+        salvar = new javax.swing.JLabel();
+        cancelar = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        tipo = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -187,39 +64,29 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
 
         PInfor.setBackground(new java.awt.Color(2, 26, 39));
 
-        jLabel1.setBackground(new java.awt.Color(27, 64, 90));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("CONEXÃO");
-        jLabel1.setOpaque(true);
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_controle.setBackground(new java.awt.Color(27, 64, 90));
+        btn_controle.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_controle.setForeground(new java.awt.Color(255, 255, 255));
+        btn_controle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_controle.setText("CONTROLE");
+        btn_controle.setOpaque(true);
+        btn_controle.setPreferredSize(new java.awt.Dimension(55, 15));
+        btn_controle.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                btn_controleMouseClicked(evt);
             }
         });
 
-        jLabel2.setBackground(new java.awt.Color(27, 64, 90));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("CONTROLE");
-        jLabel2.setOpaque(true);
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_aluno.setBackground(new java.awt.Color(27, 64, 90));
+        btn_aluno.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_aluno.setForeground(new java.awt.Color(255, 255, 255));
+        btn_aluno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_aluno.setText("ALUNOS");
+        btn_aluno.setOpaque(true);
+        btn_aluno.setPreferredSize(new java.awt.Dimension(55, 15));
+        btn_aluno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-        });
-
-        jLabel3.setBackground(new java.awt.Color(27, 64, 90));
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("ALUNOS");
-        jLabel3.setOpaque(true);
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                btn_alunoMouseClicked(evt);
             }
         });
 
@@ -233,27 +100,29 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Add User Group Man Man-30.png"))); // NOI18N
 
-        jLabel7.setBackground(new java.awt.Color(27, 64, 90));
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Cadastrar Professor");
-        jLabel7.setOpaque(true);
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_cadProfessores.setBackground(new java.awt.Color(27, 64, 90));
+        btn_cadProfessores.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_cadProfessores.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cadProfessores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_cadProfessores.setText("CADASTRAR PROFESSOR");
+        btn_cadProfessores.setOpaque(true);
+        btn_cadProfessores.setPreferredSize(new java.awt.Dimension(55, 15));
+        btn_cadProfessores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                btn_cadProfessoresMouseClicked(evt);
             }
         });
 
-        jLabel9.setBackground(new java.awt.Color(27, 64, 90));
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Cadastrar Aluno");
-        jLabel9.setOpaque(true);
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_cadastrarAluno.setBackground(new java.awt.Color(27, 64, 90));
+        btn_cadastrarAluno.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_cadastrarAluno.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cadastrarAluno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_cadastrarAluno.setText("CADASTRAR ALUNO");
+        btn_cadastrarAluno.setOpaque(true);
+        btn_cadastrarAluno.setPreferredSize(new java.awt.Dimension(55, 15));
+        btn_cadastrarAluno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
+                btn_cadastrarAlunoMouseClicked(evt);
             }
         });
 
@@ -261,25 +130,18 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
         PInfor.setLayout(PInforLayout);
         PInforLayout.setHorizontalGroup(
             PInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_controle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PInforLayout.createSequentialGroup()
-                .addGroup(PInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PInforLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 25, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PInforLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(PInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                .addGap(29, 29, 29)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PInforLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addGap(98, 98, 98))
+            .addComponent(btn_aluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_cadastrarAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_cadProfessores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PInforLayout.setVerticalGroup(
             PInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,17 +150,15 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82)
+                .addComponent(btn_controle, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_aluno, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_cadastrarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(btn_cadProfessores, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         PAlunos.setBackground(new java.awt.Color(255, 255, 255));
@@ -466,79 +326,35 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("MODELO DA PLACA :");
+        jLabel10.setText("NOME :");
         jLabel10.setOpaque(true);
 
         jLabel12.setBackground(new java.awt.Color(27, 64, 90));
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("PORTA SERIAL :");
+        jLabel12.setText("CURSO :");
         jLabel12.setOpaque(true);
 
         jLabel16.setBackground(new java.awt.Color(27, 64, 90));
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("PORTA :");
+        jLabel16.setText("RG :");
         jLabel16.setOpaque(true);
 
         jLabel17.setBackground(new java.awt.Color(27, 64, 90));
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("STATUS :");
+        jLabel17.setText("CPF :");
         jLabel17.setOpaque(true);
-
-        buscarConexao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        buscarConexao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Processor-50.png"))); // NOI18N
-        buscarConexao.setText("BUSCAR CONEXÃO");
-        buscarConexao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buscarConexaoMouseClicked(evt);
-            }
-        });
-
-        conectar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        conectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Data Transfer Filled-38.png"))); // NOI18N
-        conectar.setText("CONECTAR");
-        conectar.setEnabled(false);
-        conectar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                conectarMouseClicked(evt);
-            }
-        });
-
-        desconectar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        desconectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Logout Rounded Down Filled-38.png"))); // NOI18N
-        desconectar.setText("DESCONECTAR");
-        desconectar.setEnabled(false);
-        desconectar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                desconectarMouseClicked(evt);
-            }
-        });
-
-        jLabel14.setBackground(new java.awt.Color(27, 64, 90));
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("DADOS DA CONEXÃO RFID");
-        jLabel14.setOpaque(true);
-
-        modeloPlca.setBorder(null);
-        modeloPlca.setEnabled(false);
-
-        portaSerial.setEnabled(false);
-
-        portas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        portas.setEnabled(false);
 
         lbInformacao.setBackground(new java.awt.Color(27, 64, 90));
         lbInformacao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbInformacao.setForeground(new java.awt.Color(255, 255, 255));
         lbInformacao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbInformacao.setText("DESCONECTADO");
+        lbInformacao.setText("STATUS DO CADASTRO");
         lbInformacao.setOpaque(true);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Close Window-30 (2).png"))); // NOI18N
@@ -551,72 +367,115 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
         info.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         info.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        try {
+            txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        salvar.setText("LOGO - SALVAR");
+
+        cancelar.setText("LOGO - CANCELAR");
+
+        jLabel11.setBackground(new java.awt.Color(27, 64, 90));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("ID - RFID");
+        jLabel11.setOpaque(true);
+
+        tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALUNO", "PROFESSOR" }));
+
+        jLabel13.setBackground(new java.awt.Color(27, 64, 90));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("NOME :");
+        jLabel13.setOpaque(true);
+
         javax.swing.GroupLayout PConexaoLayout = new javax.swing.GroupLayout(PConexao);
         PConexao.setLayout(PConexaoLayout);
         PConexaoLayout.setHorizontalGroup(
             PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PConexaoLayout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PConexaoLayout.createSequentialGroup()
-                        .addComponent(buscarConexao)
-                        .addGap(42, 42, 42)
-                        .addComponent(conectar)
-                        .addGap(34, 34, 34)
-                        .addComponent(desconectar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(PConexaoLayout.createSequentialGroup()
-                        .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PConexaoLayout.createSequentialGroup()
-                                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(modeloPlca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(portaSerial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(portas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lbInformacao, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))))
-                        .addGap(0, 42, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PConexaoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(PConexaoLayout.createSequentialGroup()
+                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PConexaoLayout.createSequentialGroup()
+                            .addGap(164, 164, 164)
+                            .addComponent(lbInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(PConexaoLayout.createSequentialGroup()
+                            .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(PConexaoLayout.createSequentialGroup()
+                                    .addGap(75, 75, 75)
+                                    .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(PConexaoLayout.createSequentialGroup()
+                                    .addGap(83, 83, 83)
+                                    .addComponent(salvar)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtCurso)
+                                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                                .addComponent(txtRg)
+                                .addComponent(txtCpf)
+                                .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PConexaoLayout.createSequentialGroup()
+                                    .addComponent(cancelar)
+                                    .addGap(21, 21, 21)))))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         PConexaoLayout.setVerticalGroup(
             PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PConexaoLayout.createSequentialGroup()
                 .addComponent(jLabel6)
-                .addGap(76, 76, 76)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(modeloPlca)
+                .addGap(44, 44, 44)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(portaSerial)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(portas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                    .addGroup(PConexaoLayout.createSequentialGroup()
+                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)))
+                .addGap(28, 28, 28)
+                .addComponent(lbInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buscarConexao)
-                    .addComponent(conectar)
-                    .addComponent(desconectar))
-                .addContainerGap())
+                    .addComponent(cancelar)
+                    .addComponent(salvar))
+                .addGap(47, 47, 47))
         );
 
         javax.swing.GroupLayout mainLayout = new javax.swing.GroupLayout(main);
@@ -663,18 +522,11 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       PConexao.setVisible(true);
-       PControleAcesso.setVisible(false);
-       PAlunos.setVisible(false);
-       
-    }//GEN-LAST:event_jLabel1MouseClicked
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void btn_controleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_controleMouseClicked
         PConexao.setVisible(false);
         PControleAcesso.setVisible(true);
         PAlunos.setVisible(false);
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_btn_controleMouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
         System.exit(0);
@@ -684,101 +536,36 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
         System.exit(0);
     }//GEN-LAST:event_jLabel6MouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void btn_alunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_alunoMouseClicked
         PConexao.setVisible(false);
         PControleAcesso.setVisible(false);
         PAlunos.setVisible(true);
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_btn_alunoMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void buscarConexaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarConexaoMouseClicked
-       
-        //inicializa o combobox vazio
-        portaSerial.setModel(new DefaultComboBoxModel(new String[]{
+    private void btn_cadProfessoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cadProfessoresMouseClicked
+        PConexao.setVisible(true);
+        PControleAcesso.setVisible(false);
+        PAlunos.setVisible(false);
+        txtCurso.setEnabled(false);
         
-        }));
-        //inicializa o combobox vazio
-        modeloPlca.setModel(new DefaultComboBoxModel(new String[]{
-            
-        }));
-        //inicializa o combobox vazio
-        portas.setModel(new DefaultComboBoxModel(new String[] {
-            
-        }));
-        returnPort();
-        for (int i = 0; i < portNameList.length; i++) {
-             portas.addItem(portNameList[i]);
-        }
-        if(portNameList[0] != null){
-            portaSerial.setEnabled(true);
-            modeloPlca.setEnabled(true);
-            portas.setEnabled(true);
-            conectar.setEnabled(true);
-            desconectar.setEnabled(true);
-            info.setText("Informe os valores e click em conectar");
-            
-            numberSerial();
-            Modelo_Palca();
-        }else if(portNameList[0] == null){
-            info.setText("Nenhuma porta encontrada ... ");
-            JOptionPane.showMessageDialog(null, "Nenhuma porta localizada\nVerifique a conexão e tente novamente");
-            info.setText("Click em buscar ... ");
-            portaSerial.setEnabled(true);
-            modeloPlca.setEnabled(true);
-            portas.setEnabled(true);
-            conectar.setEnabled(false);
-            desconectar.setEnabled(false);
-        }
-    }//GEN-LAST:event_buscarConexaoMouseClicked
+    }//GEN-LAST:event_btn_cadProfessoresMouseClicked
 
-    private void conectarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_conectarMouseClicked
-       
-        SERIAL_PORT_NAME = (String) (portas.getSelectedItem());
-        portaSerialAux = Integer.parseInt((String) portaSerial.getSelectedItem());
-        
-        if(inicia_serial(SERIAL_PORT_NAME, portaSerialAux)){
-            portaSerial.setEnabled(false);
-            modeloPlca.setEnabled(false);
-            portas.setEnabled(false);
-            conectar.setEnabled(false);
-            desconectar.setEnabled(true);
-            buscarConexao.setEnabled(false);
-            System.out.println("CONECTADO .... ");
-            
-            lbInformacao.setText("CONECTADO ... ");
-            
-        }
-    }//GEN-LAST:event_conectarMouseClicked
-
-    private void desconectarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_desconectarMouseClicked
-        closeSerial();
-        portaSerial.setEnabled(true);
-        modeloPlca.setEnabled(true);
-            portas.setEnabled(true);
-            conectar.setEnabled(true);
-            desconectar.setEnabled(true);
-            buscarConexao.setEnabled(true);
-            lbInformacao.setText("DESCONECTADO ... ");
-            info.setText("DESCONECTADO ... ");
-            System.out.println("--------DESCONECTADO--------");
-    }//GEN-LAST:event_desconectarMouseClicked
-
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel7MouseClicked
-
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        
-    }//GEN-LAST:event_jLabel9MouseClicked
+    private void btn_cadastrarAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cadastrarAlunoMouseClicked
+        PConexao.setVisible(true);
+        PControleAcesso.setVisible(false);
+        PAlunos.setVisible(false);
+        txtCurso.setEnabled(true);
+    }//GEN-LAST:event_btn_cadastrarAlunoMouseClicked
 
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewVertical().setVisible(true);
+                new ViewVerticalMain().setVisible(true);
             }
         });
     }
@@ -788,29 +575,27 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
     private javax.swing.JPanel PConexao;
     private javax.swing.JPanel PControleAcesso;
     private javax.swing.JPanel PInfor;
-    private javax.swing.JLabel buscarConexao;
-    private javax.swing.JLabel conectar;
-    private javax.swing.JLabel desconectar;
+    private javax.swing.JLabel btn_aluno;
+    private javax.swing.JLabel btn_cadProfessores;
+    private javax.swing.JLabel btn_cadastrarAluno;
+    private javax.swing.JLabel btn_controle;
+    private javax.swing.JLabel cancelar;
     private javax.swing.JLabel info;
     private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -819,35 +604,14 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbInformacao;
     private javax.swing.JPanel main;
-    private javax.swing.JComboBox<String> modeloPlca;
-    private javax.swing.JComboBox<String> portaSerial;
-    private javax.swing.JComboBox<String> portas;
+    private javax.swing.JLabel salvar;
+    private javax.swing.JComboBox<String> tipo;
+    private javax.swing.JFormattedTextField txtCpf;
+    private javax.swing.JTextField txtCurso;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JFormattedTextField txtRg;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void serialEvent(SerialPortEvent spe) {
-    
-        try {
-            switch(spe.getEventType()){
-                case SerialPortEvent.DATA_AVAILABLE:
-                    if(input == null){
-                        input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
-                    }
-                    if(input.ready()){
-                        leitura = input.readLine();
-                        System.out.println("Dados recebidos pela serial"+leitura);
-                    }else{
-                        input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
-                    }
-                    break;
-                default:
-                    break;
-            }
-        } catch (Exception e) {
-            System.out.println("ERRO NO SERIAL EVENT");
-            e.printStackTrace();
-        }
-    }
-
+   
    
 }
