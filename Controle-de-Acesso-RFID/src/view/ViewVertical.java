@@ -111,38 +111,6 @@ public class ViewVertical extends javax.swing.JFrame implements SerialPortEventL
         return status;
     }
     
-    public boolean iniciaSerial(String serialPortaName, int numPorta){
-        boolean status = false;
-        try {
-            buscaListPort = null;
-            buscaListPort = CommPortIdentifier.getPortIdentifiers();
-            idPorta = null;
-            
-            while (idPorta == null && buscaListPort.hasMoreElements()) {
-                CommPortIdentifier portAtual = (CommPortIdentifier) buscaListPort.nextElement();
-                if(portAtual.getName().equals(serialPortaName) || portAtual.getName().startsWith(serialPortaName)){
-                    serialPort = (SerialPort) portAtual.open(appName, timeOut);
-                    idPorta = portAtual;
-                    System.out.println("ID PORTA "+idPorta.getName());
-                    System.out.println("TAXA TRANSMISSÃO "+numPorta);
-                    break;
-                }
-            }
-            serialPort.setSerialPortParams(numPorta, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-            serialPort.addEventListener(this);
-            serialPort.notifyOnDataAvailable(true);
-            
-            status = true;
-            
-            if(idPorta == null || serialPort==null){
-                return false;
-            }
-            
-        } catch (Exception e) {
-            status = false;
-        }
-        return status;
-    }
     public void enviarDados(String dados){
         try {
             output = serialPort.getOutputStream();
