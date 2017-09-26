@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package controle.acesso.arduino;
+package arduino;
 
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
@@ -16,19 +11,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.TooManyListenersException;
 
-/**
- *
- * @author Rafael Carvalho
- */
-public class Arduino implements SerialPortEventListener{
 
-     private SerialPort serialPort;
+public class ArduinoSerial implements SerialPortEventListener {
+
+    private SerialPort serialPort;
     private final String namePort;
 
-    public Arduino(String portName) {
+    public ArduinoSerial(String portName) {
         this.namePort = portName;
     }
 
@@ -93,6 +84,7 @@ public class Arduino implements SerialPortEventListener{
     }
 
     public void send(String data) {
+        //inserir no terminal
         try {
             output.write(data.getBytes());
         } catch (Exception e) {
@@ -101,10 +93,12 @@ public class Arduino implements SerialPortEventListener{
     }
 
     public String read() {
+        //leitura
         return inputLine;
     }
 
     public void sleep(int time) {
+        //tempo 
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
@@ -140,7 +134,11 @@ public class Arduino implements SerialPortEventListener{
         // Ignore all the other eventTypes, but you should consider the other ones.
     }
 
-    public String send(List d) {
+    public void hashCode(int n) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void serialEvent(int n) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

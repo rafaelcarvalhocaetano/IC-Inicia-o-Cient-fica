@@ -1,6 +1,6 @@
 package view;
 
-import controle.acesso.arduino.Arduino;
+import arduino.util.Arduino;
 import controle.acesso.bean.Cadastro;
 import controle.acesso.dao.CadastroDAO;
 import java.sql.SQLException;
@@ -31,10 +31,7 @@ public class CadastroView extends javax.swing.JFrame {
 
     public CadastroView() {
         initComponents();
-        t.start();
-        Main m = new Main();
-        m.setVisible(false);
-        
+        t.start();     
         
     }
       

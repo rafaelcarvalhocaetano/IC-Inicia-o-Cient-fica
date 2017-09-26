@@ -1,14 +1,20 @@
 package view;
 
+import arduino.ArduinoSerial;
+import arduino.util.Arduino;
+
 /**
  *
  * @author Rafael Carvalho Caetano - TCC UNINOVE
  */
 public class ViewVerticalMain extends javax.swing.JFrame {
 
+    ArduinoSerial as = new ArduinoSerial("COM3");
     
     public ViewVerticalMain() {
         initComponents();
+        as.initialize();
+       
     }
     
    
@@ -560,6 +566,8 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         PControleAcesso.setVisible(false);
         PAlunos.setVisible(false);
         txtCurso.setEnabled(true);
+        
+        
     }//GEN-LAST:event_btn_cadastrarAlunoMouseClicked
 
     public static void main(String args[]) {
