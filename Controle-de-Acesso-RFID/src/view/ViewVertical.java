@@ -1,5 +1,8 @@
 package view;
 
+import gnu.io.*;
+import java.util.Enumeration;
+
 /**
  *
  * @author Rafael Carvalho Caetano - TCC UNINOVE
@@ -10,8 +13,58 @@ public class ViewVertical extends javax.swing.JFrame {
     public ViewVertical() {
         initComponents();
     }
-
-   
+    
+    private String[] portNameList;  //retorna uma lista de portas disponivel SO
+    private Enumeration buscaListPort; //tbm retorna uma lista de portas disponiveis
+    private CommPortIdentifier portaAtual;
+    private String portaSerialAux; //auxilia na conversão das portas seriais
+    
+    public String[] returnPort(){
+        int i = 0;
+        buscaListPort = CommPortIdentifier.getPortIdentifiers();
+        portNameList = new String [10];
+        
+        while(buscaListPort.hasMoreElements()){
+            portaAtual = (CommPortIdentifier) buscaListPort.nextElement();
+            portNameList[i] = portaAtual.getName();
+            
+            i++;
+        }
+        return portNameList;        
+    }
+    
+    public void numberSerial(){
+        portaSerial.addItem("300");
+        portaSerial.addItem("1200");
+        portaSerial.addItem("2400");
+        portaSerial.addItem("4800");
+        portaSerial.addItem("9600");
+        portaSerial.addItem("19200");
+        portaSerial.addItem("38400");
+        portaSerial.addItem("57600");
+        portaSerial.addItem("115200");
+        portaSerial.addItem("230400");
+        portaSerial.addItem("250000");    
+    }
+    private void Modelo_Palca(){
+        modeloPlca.addItem("Arduino Yún");
+        modeloPlca.addItem("Arduino UNO");
+        modeloPlca.addItem("Arduino Duemilanove");
+        modeloPlca.addItem("Arduino Diecimila");
+        modeloPlca.addItem("Arduino Nano");
+        modeloPlca.addItem("Arduino Mega");
+        modeloPlca.addItem("Arduino Mega 2560");
+        modeloPlca.addItem("Arduino Mega ADK");
+        modeloPlca.addItem("Arduino Leonardo");
+        modeloPlca.addItem("Arduino Micro");
+        modeloPlca.addItem("Arduino Esplora");
+        modeloPlca.addItem("Arduino Mini");
+        modeloPlca.addItem("Arduino Ethernet");
+        modeloPlca.addItem("Arduino Fio");
+        modeloPlca.addItem("Arduino BT");
+       
+    }
+      
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -42,13 +95,13 @@ public class ViewVertical extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        buscarConexao = new javax.swing.JLabel();
+        conectar = new javax.swing.JLabel();
+        desconectar = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        modeloPlca = new javax.swing.JComboBox<>();
+        portaSerial = new javax.swing.JComboBox<>();
+        portas = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -328,17 +381,22 @@ public class ViewVertical extends javax.swing.JFrame {
         jLabel17.setText("STATUS :");
         jLabel17.setOpaque(true);
 
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Processor-50.png"))); // NOI18N
-        jLabel9.setText("BUSCAR CONEXÃO");
+        buscarConexao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        buscarConexao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Processor-50.png"))); // NOI18N
+        buscarConexao.setText("BUSCAR CONEXÃO");
+        buscarConexao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buscarConexaoMouseClicked(evt);
+            }
+        });
 
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Data Transfer Filled-38.png"))); // NOI18N
-        jLabel11.setText("CONECTAR");
+        conectar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        conectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Data Transfer Filled-38.png"))); // NOI18N
+        conectar.setText("CONECTAR");
 
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Logout Rounded Down Filled-38.png"))); // NOI18N
-        jLabel13.setText("DESCONECTAR");
+        desconectar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        desconectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Logout Rounded Down Filled-38.png"))); // NOI18N
+        desconectar.setText("DESCONECTAR");
 
         jLabel14.setBackground(new java.awt.Color(27, 64, 90));
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -347,13 +405,9 @@ public class ViewVertical extends javax.swing.JFrame {
         jLabel14.setText("DADOS DA CONEXÃO RFID");
         jLabel14.setOpaque(true);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(null);
+        modeloPlca.setBorder(null);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        portas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel18.setBackground(new java.awt.Color(27, 64, 90));
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -377,11 +431,11 @@ public class ViewVertical extends javax.swing.JFrame {
                 .addGap(75, 75, 75)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PConexaoLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addComponent(buscarConexao)
                         .addGap(42, 42, 42)
-                        .addComponent(jLabel11)
+                        .addComponent(conectar)
                         .addGap(34, 34, 34)
-                        .addComponent(jLabel13)
+                        .addComponent(desconectar)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PConexaoLayout.createSequentialGroup()
                         .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,9 +447,9 @@ public class ViewVertical extends javax.swing.JFrame {
                                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(modeloPlca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(portaSerial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(portas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 42, Short.MAX_VALUE))))
@@ -411,15 +465,15 @@ public class ViewVertical extends javax.swing.JFrame {
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1)
+                    .addComponent(modeloPlca)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox2)
+                    .addComponent(portaSerial)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox3)
+                    .addComponent(portas)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -427,9 +481,9 @@ public class ViewVertical extends javax.swing.JFrame {
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel13))
+                    .addComponent(buscarConexao)
+                    .addComponent(conectar)
+                    .addComponent(desconectar))
                 .addContainerGap())
         );
 
@@ -508,6 +562,17 @@ public class ViewVertical extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void buscarConexaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarConexaoMouseClicked
+       returnPort();
+        for (int i = 0; i < portNameList.length; i++) {
+            if(portNameList[i] != null){
+                portas.addItem(portNameList[i]);
+                numberSerial();
+                Modelo_Palca();
+            }
+        }
+    }//GEN-LAST:event_buscarConexaoMouseClicked
+
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -522,15 +587,13 @@ public class ViewVertical extends javax.swing.JFrame {
     private javax.swing.JPanel PConexao;
     private javax.swing.JPanel PControleAcesso;
     private javax.swing.JPanel PInfor;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JLabel buscarConexao;
+    private javax.swing.JLabel conectar;
+    private javax.swing.JLabel desconectar;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -545,7 +608,6 @@ public class ViewVertical extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -553,5 +615,10 @@ public class ViewVertical extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel main;
+    private javax.swing.JComboBox<String> modeloPlca;
+    private javax.swing.JComboBox<String> portaSerial;
+    private javax.swing.JComboBox<String> portas;
     // End of variables declaration//GEN-END:variables
+
+   
 }
