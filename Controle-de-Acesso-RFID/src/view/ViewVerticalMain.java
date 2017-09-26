@@ -52,7 +52,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         txtCpf = new javax.swing.JFormattedTextField();
         salvar = new javax.swing.JLabel();
         cancelar = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
         tipo = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
 
@@ -379,16 +379,18 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        salvar.setText("LOGO - SALVAR");
+        salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Plus Filled-30.png"))); // NOI18N
+        salvar.setText(" SALVAR");
 
-        cancelar.setText("LOGO - CANCELAR");
+        cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Delete-30.png"))); // NOI18N
+        cancelar.setText("CANCELAR");
 
-        jLabel11.setBackground(new java.awt.Color(27, 64, 90));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("ID - RFID");
-        jLabel11.setOpaque(true);
+        id.setBackground(new java.awt.Color(27, 64, 90));
+        id.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        id.setForeground(new java.awt.Color(255, 255, 255));
+        id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        id.setText("ID - RFID");
+        id.setOpaque(true);
 
         tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALUNO", "PROFESSOR" }));
 
@@ -396,7 +398,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("NOME :");
+        jLabel13.setText("TIPO :");
         jLabel13.setOpaque(true);
 
         javax.swing.GroupLayout PConexaoLayout = new javax.swing.GroupLayout(PConexao);
@@ -431,12 +433,11 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                                 .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                                 .addComponent(txtRg)
                                 .addComponent(txtCpf)
-                                .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PConexaoLayout.createSequentialGroup()
+                                .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(cancelar)
-                                    .addGap(21, 21, 21)))))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(140, Short.MAX_VALUE))
         );
         PConexaoLayout.setVerticalGroup(
@@ -444,7 +445,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             .addGroup(PConexaoLayout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addGap(44, 44, 44)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -471,7 +472,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 .addComponent(lbInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelar)
                     .addComponent(salvar))
@@ -580,10 +581,10 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     private javax.swing.JLabel btn_cadastrarAluno;
     private javax.swing.JLabel btn_controle;
     private javax.swing.JLabel cancelar;
+    private javax.swing.JLabel id;
     private javax.swing.JLabel info;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;

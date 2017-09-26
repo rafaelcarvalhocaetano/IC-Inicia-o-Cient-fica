@@ -574,16 +574,15 @@
                                       <Component id="txtNome" pref="231" max="32767" attributes="0"/>
                                       <Component id="txtRg" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txtCpf" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="info" alignment="0" min="-2" pref="227" max="-2" attributes="0"/>
                                       <Component id="tipo" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                           <Component id="cancelar" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                          <Component id="info" min="-2" pref="227" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <Component id="jLabel11" alignment="1" min="-2" pref="391" max="-2" attributes="0"/>
+                          <Component id="id" alignment="1" min="-2" pref="391" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="140" max="32767" attributes="0"/>
                   </Group>
@@ -594,7 +593,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="jLabel11" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="id" min="-2" pref="26" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtNome" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
@@ -627,7 +626,7 @@
                       <Component id="lbInformacao" min="-2" pref="26" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="info" min="-2" pref="24" max="-2" attributes="0"/>
-                      <EmptySpace pref="53" max="32767" attributes="0"/>
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="salvar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -756,15 +755,21 @@
             </Component>
             <Component class="javax.swing.JLabel" name="salvar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="LOGO - SALVAR"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/icons8-Plus Filled-30.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value=" SALVAR"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="cancelar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="LOGO - CANCELAR"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/icons8-Delete-30.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="CANCELAR"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel11">
+            <Component class="javax.swing.JLabel" name="id">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="5a" green="40" red="1b" type="rgb"/>
@@ -805,7 +810,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="NOME :"/>
+                <Property name="text" type="java.lang.String" value="TIPO :"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
