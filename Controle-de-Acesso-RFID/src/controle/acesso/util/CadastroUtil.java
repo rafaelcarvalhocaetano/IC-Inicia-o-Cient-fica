@@ -1,18 +1,28 @@
 
 package controle.acesso.util;
 
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
+
 /**
  *
  * @author Rafael Carvalho
  */
-public class CadastroUtil {
+public class CadastroUtil implements SerialPortEventListener{
     
     
     
     
-    
-    public void windows(int i){
-        System.exit(i);
+
+    @Override
+    public void serialEvent(SerialPortEvent spe) {
+       
     }
+    
+    
+    
+    
+    
+   
     
 }

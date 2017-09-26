@@ -2,7 +2,7 @@ package view;
 
 /**
  *
- * @author Developer
+ * @author Rafael Carvalho Caetano - TCC UNINOVE
  */
 public class ViewVertical extends javax.swing.JFrame {
 
@@ -508,9 +508,6 @@ public class ViewVertical extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {
