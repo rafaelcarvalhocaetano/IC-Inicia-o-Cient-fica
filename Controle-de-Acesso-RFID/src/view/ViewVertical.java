@@ -1,13 +1,18 @@
 package view;
 
 import gnu.io.*;
+import java.io.BufferedReader;
+import java.io.FileDescriptor;
+import java.io.OutputStream;
 import java.util.Enumeration;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Rafael Carvalho Caetano - TCC UNINOVE
  */
-public class ViewVertical extends javax.swing.JFrame {
+public class ViewVertical extends javax.swing.JFrame implements SerialPortEventListener{
 
     
     public ViewVertical() {
@@ -17,10 +22,20 @@ public class ViewVertical extends javax.swing.JFrame {
     private String[] portNameList;  //retorna uma lista de portas disponivel SO
     private Enumeration buscaListPort; //tbm retorna uma lista de portas disponiveis
     private CommPortIdentifier portaAtual;
-    private String portaSerialAux; //auxilia na conversão das portas seriais
+    private int portaSerialAux; //auxilia na conversão das portas seriais
+    private String serialPortaNameAux;
+    private CommPortIdentifier idPorta; //identificador da porta
+    private SerialPort serialPort;
+    private String appName = "Supervisorio";
+    private int timeOut = 1000; // tempo de espera da porta serial
+    private OutputStream output = null;
+    private BufferedReader input = null;
+    private String SERIAL_PORT_NAME;
+    
     
     public String[] returnPort(){
-        int i = 0;
+        int i = 0;        
+        buscaListPort = null;
         buscaListPort = CommPortIdentifier.getPortIdentifiers();
         portNameList = new String [10];
         
@@ -63,6 +78,85 @@ public class ViewVertical extends javax.swing.JFrame {
         modeloPlca.addItem("Arduino Fio");
         modeloPlca.addItem("Arduino BT");
        
+    }
+    
+    
+    public boolean inicia_serial(String serial_port_name, int number_port){
+        boolean status = false;
+        try {
+            buscaListPort = null;
+            buscaListPort = CommPortIdentifier.getPortIdentifiers();
+            idPorta = null;
+            CommPortIdentifier porta_atual = (CommPortIdentifier) buscaListPort.nextElement();
+            while(idPorta.getName().equals(serial_port_name) || porta_atual.getName().startsWith(serial_port_name)){
+                serialPort = (SerialPort) porta_atual.open(appName, timeOut);
+                idPorta = porta_atual;
+                System.out.println("ID PORTA "+idPorta.getName());
+                System.out.println("TAXA TRANSMISSÃO "+number_port);
+                break;
+            }
+            serialPort.setSerialPortParams(number_port, serialPort.DATABITS_8, serialPort.STOPBITS_1, serialPort.PARITY_NONE);
+            serialPort.addEventListener(this);
+            serialPort.notifyOnDataAvailable(true);
+            
+            status = true;
+            
+            if(idPorta == null || serialPort == null){
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Erro em INICIA SERIAL");
+            return false;
+        }
+        return status;
+    }
+    
+    public boolean iniciaSerial(String serialPortaName, int numPorta){
+        boolean status = false;
+        try {
+            buscaListPort = null;
+            buscaListPort = CommPortIdentifier.getPortIdentifiers();
+            idPorta = null;
+            
+            while (idPorta == null && buscaListPort.hasMoreElements()) {
+                CommPortIdentifier portAtual = (CommPortIdentifier) buscaListPort.nextElement();
+                if(portAtual.getName().equals(serialPortaName) || portAtual.getName().startsWith(serialPortaName)){
+                    serialPort = (SerialPort) portAtual.open(appName, timeOut);
+                    idPorta = portAtual;
+                    System.out.println("ID PORTA "+idPorta.getName());
+                    System.out.println("TAXA TRANSMISSÃO "+numPorta);
+                    break;
+                }
+            }
+            serialPort.setSerialPortParams(numPorta, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+            serialPort.addEventListener(this);
+            serialPort.notifyOnDataAvailable(true);
+            
+            status = true;
+            
+            if(idPorta == null || serialPort==null){
+                return false;
+            }
+            
+        } catch (Exception e) {
+            status = false;
+        }
+        return status;
+    }
+    public void enviarDados(String dados){
+        try {
+            output = serialPort.getOutputStream();
+            output.write(dados.getBytes());
+            
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+    }
+    public synchronized void closeSerial(){
+        if(serialPort != null){
+            serialPort.removeEventListener();
+            serialPort.close();
+        }
     }
       
     @SuppressWarnings("unchecked")
@@ -395,6 +489,11 @@ public class ViewVertical extends javax.swing.JFrame {
         conectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Data Transfer Filled-38.png"))); // NOI18N
         conectar.setText("CONECTAR");
         conectar.setEnabled(false);
+        conectar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                conectarMouseClicked(evt);
+            }
+        });
 
         desconectar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         desconectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Logout Rounded Down Filled-38.png"))); // NOI18N
@@ -577,26 +676,54 @@ public class ViewVertical extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void buscarConexaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarConexaoMouseClicked
-       returnPort();
+       
+        //inicializa o combobox vazio
+        portaSerial.setModel(new DefaultComboBoxModel(new String[]{
+        
+        }));
+        //inicializa o combobox vazio
+        modeloPlca.setModel(new DefaultComboBoxModel(new String[]{
+            
+        }));
+        //inicializa o combobox vazio
+        portas.setModel(new DefaultComboBoxModel(new String[] {
+            
+        }));
+        returnPort();
         for (int i = 0; i < portNameList.length; i++) {
-            if(portNameList[i] != null){
-                portas.addItem(portNameList[i]);
-                
-                portaSerial.setEnabled(true);
-                modeloPlca.setEnabled(true);
-                portas.setEnabled(true);
-                conectar.setEnabled(true);
-                desconectar.setEnabled(true);
-                info.setText("Informe os valores e click em conectar");
-                
-                
-                
-                
-                numberSerial();
-                Modelo_Palca();
-            }
+             portas.addItem(portNameList[i]);
+        }
+        if(portNameList[0] != null){
+            portaSerial.setEnabled(true);
+            modeloPlca.setEnabled(true);
+            portas.setEnabled(true);
+            conectar.setEnabled(true);
+            desconectar.setEnabled(true);
+            info.setText("Informe os valores e click em conectar");
+            
+            numberSerial();
+            Modelo_Palca();
+        }else if(portNameList[0] == null){
+            info.setText("Nenhuma porta encontrada ... ");
+            JOptionPane.showMessageDialog(null, "Nenhuma porta localizada\nVerifique a conexão e tente novamente");
+            info.setText("Click em buscar ... ");
+            portaSerial.setEnabled(true);
+            modeloPlca.setEnabled(true);
+            portas.setEnabled(true);
+            conectar.setEnabled(false);
+            desconectar.setEnabled(false);
         }
     }//GEN-LAST:event_buscarConexaoMouseClicked
+
+    private void conectarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_conectarMouseClicked
+       
+        SERIAL_PORT_NAME = (String) portas.getSelectedItem();
+        portaSerialAux = (int) portaSerial.getSelectedItem();
+        
+        if(iniciaSerial(SERIAL_PORT_NAME, portaSerialAux)){
+            
+        }
+    }//GEN-LAST:event_conectarMouseClicked
 
     public static void main(String args[]) {
        
@@ -645,6 +772,11 @@ public class ViewVertical extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> portaSerial;
     private javax.swing.JComboBox<String> portas;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void serialEvent(SerialPortEvent spe) {
+    
+    }
 
    
 }
