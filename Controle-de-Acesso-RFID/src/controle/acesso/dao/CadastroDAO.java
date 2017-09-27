@@ -6,7 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -38,6 +40,42 @@ public class CadastroDAO {
             itens.add(ca);
         }
         return itens;
+    }
+    public void initSave(CadastroAluno c){
+        StringBuilder sql = new StringBuilder();
+        
+        sql.append("INSERT INTO arduino (id, codigo, nome, rg, cpf, curso, entrada, saida, tipo) VALUES (?,?,?,?,?,?,?,?, ?) ");
+        
+        Connection con;
+        try {
+
+            con = Conexao.conexao();
+            PreparedStatement ptt = con.prepareStatement(sql.toString());
+            
+            ptt.setString(1, c.getId());
+            ptt.setString(2, c.getCodigo());
+            ptt.setString(3, c.getNome());
+            ptt.setString(4, c.getRg());
+            ptt.setString(5, c.getCpf());
+            ptt.setString(6, c.getCurso());
+            
+            Date hj = new Date();
+            SimpleDateFormat sp = new SimpleDateFormat("dd/MM/yyyyy HH:mm:ss");
+            c.setEntrada(sp.format(hj));
+            c.setSaida(sp.format(hj));
+            
+            ptt.setString(7, c.getEntrada());
+            ptt.setString(8, c.getSaida());
+            ptt.setString(9, c.getTipo());
+           
+            ptt.executeUpdate();
+
+            System.out.println("SALVO COM SUCESSO " + c.getCodigo());
+
+        } catch (SQLException ex) {
+            System.out.println("ERRO AO SALVAR INITSAVE DAO");
+            ex.printStackTrace();
+        }
     }
     
 

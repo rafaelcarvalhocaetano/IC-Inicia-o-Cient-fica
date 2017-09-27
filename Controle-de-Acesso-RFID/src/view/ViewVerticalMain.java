@@ -32,7 +32,10 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     };
     
     public ViewVerticalMain() {
-        initComponents();        
+        initComponents();
+        
+
+        
         DefaultTableModel modelo = (DefaultTableModel) tabelaControleAcesso.getModel();
         tabelaControleAcesso.setRowSorter(new TableRowSorter(modelo));
         try {
@@ -55,8 +58,10 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             ca.getNome(),
             ca.getRg(),
             ca.getCpf(),
-            ca.getTipo()
+            ca.getTipo(),
+            ca.getEntrada(),                
         });
+                       
         }  
     }
     

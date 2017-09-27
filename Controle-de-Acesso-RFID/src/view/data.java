@@ -35,7 +35,7 @@ public class data {
         SimpleDateFormat sp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         
         System.out.println(" "+sp.format(data.getTime()));
-        
+       
        
         CadastroDAO dao = new CadastroDAO();
         CadastroAluno ca = new CadastroAluno();
@@ -53,7 +53,7 @@ public class data {
         
         dao.salvarAluno(ca);
         System.out.println("SALVO COM SUCESSO ");
-        */
+        
         /*
         CadastroDAO dao = new CadastroDAO();
         CadastroP p = new CadastroP();
