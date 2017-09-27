@@ -23,7 +23,7 @@ public class CadastroDAO {
 
         sql.append("SELECT codigo ");
         sql.append("FROM arduino");
-
+        
         Connection conexao = Conexao.conexao();
         PreparedStatement ps = conexao.prepareStatement(sql.toString());
 
@@ -38,7 +38,7 @@ public class CadastroDAO {
         }
         return itens;
     }
-    public ArrayList<CadastroAluno> listarP() throws SQLException {
+    public ArrayList<CadastroP> listarP() throws SQLException {
 
         StringBuilder sql = new StringBuilder();
 
@@ -49,11 +49,11 @@ public class CadastroDAO {
         PreparedStatement ps = conexao.prepareStatement(sql.toString());
 
         ResultSet resultado = ps.executeQuery();
-        ArrayList<CadastroAluno> itens = new ArrayList<CadastroAluno>();
+        ArrayList<CadastroP> itens = new ArrayList<CadastroP>();
 
         while (resultado.next()) {
 
-            CadastroAluno ca = new CadastroAluno();
+            CadastroP ca = new CadastroP();
             ca.setId(resultado.getString("codigo"));
             itens.add(ca);
         }

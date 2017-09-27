@@ -8,11 +8,16 @@ package view;
 import controle.acesso.bean.CadastroAluno;
 import controle.acesso.bean.CadastroP;
 import controle.acesso.dao.CadastroDAO;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -49,6 +54,7 @@ public class data {
         dao.salvarAluno(ca);
         System.out.println("SALVO COM SUCESSO ");
         */
+        /*
         CadastroDAO dao = new CadastroDAO();
         CadastroP p = new CadastroP();
         p.setCodigo("12345678");
@@ -63,6 +69,23 @@ public class data {
         
         dao.salvarProfessor(p);
         System.out.println("salvo util");
+        
+        
+        CadastroDAO dao = new CadastroDAO();
+        CadastroP ca = new CadastroP();
+        
+        try {
+           List<CadastroP> itens = dao.listarP();
+            
+            for (CadastroP c : itens) {
+                System.out.println("nome "+c.getNome());
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro aqui .. ");
+        }
+*/
+        
     
     }
     
