@@ -192,7 +192,7 @@ public class CadastroView extends javax.swing.JFrame {
         CadastroAluno c = new CadastroAluno();
         CadastroDAO dao = new CadastroDAO();
         try{
-        List<CadastroAluno> lista = dao.listarAluno();
+        List<CadastroAluno> lista = dao.listar();
         for (CadastroAluno ca : lista) {
             
             if(a.read()==null || ca.getId().equalsIgnoreCase(tag.getText())){

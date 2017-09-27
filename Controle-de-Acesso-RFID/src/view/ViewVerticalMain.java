@@ -1,7 +1,12 @@
 package view;
 
 import arduino.ArduinoSerial;
-import arduino.util.Arduino;
+
+import controle.acesso.bean.CadastroAluno;
+import controle.acesso.dao.CadastroDAO;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -14,7 +19,32 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     public ViewVerticalMain() {
         initComponents();
         as.initialize();
+        DefaultTableModel tb = new DefaultTableModel();
+        tabelaControleAcesso.setRowSorter(new TableRowSorter(tb));
+        
+        while (true) {            
+            txtId.setText(as.read());
+        }
+        
        
+    }
+    public void ler(){
+        DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
+        model.setNumRows(0);
+        CadastroDAO dao = new CadastroDAO();
+        
+        try {
+            for(CadastroAluno ca:dao.listar()){
+                model.addRow(new Object[]{
+                ca.getCodigo(),
+                ca.getNome(),
+                ca.getRg(),
+                ca.getCpf()                
+            });
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro no LER");
+        }
     }
     
    
@@ -33,7 +63,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         PAlunos = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelaBuscarAluno = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -42,14 +72,8 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         PControleAcesso = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaControleAcesso = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         PConexao = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -64,7 +88,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         txtCpf = new javax.swing.JFormattedTextField();
         salvar = new javax.swing.JLabel();
         cancelar = new javax.swing.JLabel();
-        id = new javax.swing.JLabel();
+        txtId = new javax.swing.JLabel();
         tipo = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
 
@@ -183,7 +207,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaBuscarAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -194,9 +218,9 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable2.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable2.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane2.setViewportView(jTable2);
+        tabelaBuscarAluno.setGridColor(new java.awt.Color(255, 255, 255));
+        tabelaBuscarAluno.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setViewportView(tabelaBuscarAluno);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -266,7 +290,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             .addGroup(PAlunosLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(PAlunosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PAlunosLayout.createSequentialGroup()
@@ -287,7 +311,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         PControleAcesso.setBackground(new java.awt.Color(255, 255, 255));
         PControleAcesso.setPreferredSize(new java.awt.Dimension(600, 509));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaControleAcesso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -295,12 +319,17 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "CÓDIGO", "NOME", "RG", "CPF"
             }
         ));
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jTable1);
+        tabelaControleAcesso.setGridColor(new java.awt.Color(255, 255, 255));
+        tabelaControleAcesso.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tabelaControleAcesso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tabelaControleAcessoKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaControleAcesso);
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Close Window-30 (2).png"))); // NOI18N
@@ -309,24 +338,6 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 jLabel15MouseClicked(evt);
             }
         });
-
-        try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        jLabel1.setText("NOME");
-
-        jLabel2.setText("RG");
-
-        jLabel3.setText("CPF");
 
         javax.swing.GroupLayout PControleAcessoLayout = new javax.swing.GroupLayout(PControleAcesso);
         PControleAcesso.setLayout(PControleAcessoLayout);
@@ -337,42 +348,15 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 .addComponent(jLabel15))
             .addGroup(PControleAcessoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PControleAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PControleAcessoLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(PControleAcessoLayout.createSequentialGroup()
-                        .addComponent(jTextField2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))))
-            .addGroup(PControleAcessoLayout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(jLabel1)
-                .addGap(153, 153, 153)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(125, 125, 125))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+                .addContainerGap())
         );
         PControleAcessoLayout.setVerticalGroup(
             PControleAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleAcessoLayout.createSequentialGroup()
                 .addComponent(jLabel15)
-                .addGap(45, 45, 45)
-                .addGroup(PControleAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PControleAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -438,18 +422,24 @@ public class ViewVerticalMain extends javax.swing.JFrame {
 
         salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Plus Filled-30.png"))); // NOI18N
         salvar.setText(" SALVAR");
+        salvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salvarMouseClicked(evt);
+            }
+        });
 
         cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Delete-30.png"))); // NOI18N
         cancelar.setText("CANCELAR");
 
-        id.setBackground(new java.awt.Color(27, 64, 90));
-        id.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        id.setForeground(new java.awt.Color(255, 255, 255));
-        id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        id.setText("ID - RFID");
-        id.setOpaque(true);
+        txtId.setBackground(new java.awt.Color(27, 64, 90));
+        txtId.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtId.setForeground(new java.awt.Color(255, 255, 255));
+        txtId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtId.setText("ID - RFID");
+        txtId.setOpaque(true);
 
         tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALUNO", "PROFESSOR" }));
+        tipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel13.setBackground(new java.awt.Color(27, 64, 90));
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -494,7 +484,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(cancelar)
                                     .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(140, Short.MAX_VALUE))
         );
         PConexaoLayout.setVerticalGroup(
@@ -502,7 +492,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             .addGroup(PConexaoLayout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addGap(44, 44, 44)
-                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -623,6 +613,26 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_cadastrarAlunoMouseClicked
 
+    private void tabelaControleAcessoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaControleAcessoKeyReleased
+        
+              
+    }//GEN-LAST:event_tabelaControleAcessoKeyReleased
+
+    private void salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salvarMouseClicked
+        
+       CadastroAluno ca = new CadastroAluno();
+       CadastroDAO dao = new CadastroDAO();
+       
+       ca.setCodigo(txtId.getText());
+       ca.setNome(txtNome.getText());
+       ca.setTipo((String) tipo.getSelectedItem());
+       ca.setCurso(txtCurso.getText());
+       ca.setRg(txtRg.getText());
+       ca.setCpf(txtCpf.getText());
+      
+       
+    }//GEN-LAST:event_salvarMouseClicked
+
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -642,12 +652,8 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     private javax.swing.JLabel btn_cadastrarAluno;
     private javax.swing.JLabel btn_controle;
     private javax.swing.JLabel cancelar;
-    private javax.swing.JLabel id;
     private javax.swing.JLabel info;
     private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -655,10 +661,8 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -666,16 +670,16 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lbInformacao;
     private javax.swing.JPanel main;
     private javax.swing.JLabel salvar;
+    private javax.swing.JTable tabelaBuscarAluno;
+    private javax.swing.JTable tabelaControleAcesso;
     private javax.swing.JComboBox<String> tipo;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtCurso;
+    private javax.swing.JLabel txtId;
     private javax.swing.JTextField txtNome;
     private javax.swing.JFormattedTextField txtRg;
     // End of variables declaration//GEN-END:variables

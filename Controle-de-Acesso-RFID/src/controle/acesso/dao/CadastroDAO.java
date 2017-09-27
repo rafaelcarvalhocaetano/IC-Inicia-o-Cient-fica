@@ -1,7 +1,6 @@
 package controle.acesso.dao;
 
 import controle.acesso.bean.CadastroAluno;
-import controle.acesso.bean.CadastroP;
 import controle.acesso.factory.Conexao;
 import java.sql.Connection;
 import java.util.Date;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  */
 public class CadastroDAO {
 
-    public ArrayList<CadastroAluno> listarAluno() throws SQLException {
+    public ArrayList<CadastroAluno> listar() throws SQLException {
 
         StringBuilder sql = new StringBuilder();
 
@@ -38,31 +37,11 @@ public class CadastroDAO {
         }
         return itens;
     }
-    public ArrayList<CadastroP> listarP() throws SQLException {
+    
 
+    public void salvar(CadastroAluno c) {
         StringBuilder sql = new StringBuilder();
-
-        sql.append("SELECT codigo ");
-        sql.append("FROM professor");
-
-        Connection conexao = Conexao.conexao();
-        PreparedStatement ps = conexao.prepareStatement(sql.toString());
-
-        ResultSet resultado = ps.executeQuery();
-        ArrayList<CadastroP> itens = new ArrayList<CadastroP>();
-
-        while (resultado.next()) {
-
-            CadastroP ca = new CadastroP();
-            ca.setId(resultado.getString("codigo"));
-            itens.add(ca);
-        }
-        return itens;
-    }
-
-    public void salvarAluno(CadastroAluno c) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO arduino (id, codigo, nome, rg, cpf, curso, entrada, saida) VALUES (?,?,?,?,?,?,?,?)");
+        sql.append("INSERT INTO arduino (id, codigo, nome, rg, cpf, curso, entrada, saida, tipo) VALUES (?,?,?,?,?,?,?,?,?) ");
         
         Connection con;
         try {
@@ -84,6 +63,7 @@ public class CadastroDAO {
             
             ptt.setString(7, c.getEntrada());
             ptt.setString(8, c.getSaida());
+            ptt.setString(9, c.getTipo());
            
             ptt.executeUpdate();
 
@@ -95,41 +75,4 @@ public class CadastroDAO {
         }
 
     }
-    public void salvarProfessor(CadastroP p) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO professor (id, codigo, nome, rg, cpf, entrada, saida) VALUES (?,?,?,?,?,?,?)");
-        
-        Connection con;
-        try {
-
-            con = Conexao.conexao();
-            PreparedStatement ptt = con.prepareStatement(sql.toString());
-            
-            ptt.setString(1, p.getId());
-            ptt.setString(2, p.getCodigo());
-            ptt.setString(3, p.getNome());
-            ptt.setString(4, p.getRg());
-            ptt.setString(5, p.getCpf());
-                       
-            Date hj = new Date();
-            SimpleDateFormat sp = new SimpleDateFormat("dd/MM/yyyyy HH:mm:ss");
-            p.setEntrada(sp.format(hj));
-            p.setSaida(sp.format(hj));            
-            
-            ptt.setString(6, p.getEntrada());
-            ptt.setString(7, p.getSaida());
-           
-            ptt.executeUpdate();
-
-            System.out.println("SALVO COM SUCESSO DAO");
-
-        } catch (SQLException ex) {
-            System.out.println("ERRO AO SALVAR O PROFESSOR NA CAMADA DAO");
-            ex.printStackTrace();
-        }
-
-    }
-    
-    
-
 }

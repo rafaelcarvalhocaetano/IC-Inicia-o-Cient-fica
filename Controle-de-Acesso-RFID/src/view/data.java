@@ -6,7 +6,7 @@
 package view;
 
 import controle.acesso.bean.CadastroAluno;
-import controle.acesso.bean.CadastroP;
+
 import controle.acesso.dao.CadastroDAO;
 import java.sql.SQLException;
 import java.text.DateFormat;

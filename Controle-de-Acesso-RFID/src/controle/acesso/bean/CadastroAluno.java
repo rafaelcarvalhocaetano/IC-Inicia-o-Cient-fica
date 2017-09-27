@@ -15,6 +15,7 @@ public class CadastroAluno {
     private String curso;
     private String entrada;
     private String saida;
+    private String tipo;
     
       
     /**
@@ -133,6 +134,20 @@ public class CadastroAluno {
      */
     public void setSaida(String saida) {
         this.saida = saida;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     
