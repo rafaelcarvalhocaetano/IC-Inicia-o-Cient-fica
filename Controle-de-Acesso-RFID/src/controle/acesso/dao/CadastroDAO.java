@@ -45,7 +45,7 @@ public class CadastroDAO {
         StringBuilder sql = new StringBuilder();
         
         sql.append("INSERT INTO arduino (id, codigo, nome, rg, cpf, curso, entrada, saida, tipo) VALUES (?,?,?,?,?,?,?,?, ?) ");
-        
+        sql.append(" WHERE codigo = ? ");
         Connection con;
         try {
 

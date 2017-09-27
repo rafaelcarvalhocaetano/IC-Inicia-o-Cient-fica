@@ -4,7 +4,13 @@ import arduino.ArduinoSerial;
 
 import controle.acesso.bean.CadastroAluno;
 import controle.acesso.dao.CadastroDAO;
+import controle.acesso.factory.Conexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,17 +31,13 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             as.initialize();
             while(true){
               txtId.setText(as.read());
-                
             }
-            
         }
     };
     
     public ViewVerticalMain() {
         initComponents();
-        
-
-        
+       
         DefaultTableModel modelo = (DefaultTableModel) tabelaControleAcesso.getModel();
         tabelaControleAcesso.setRowSorter(new TableRowSorter(modelo));
         try {
@@ -43,15 +45,34 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println("ERRO NA LISTA");
         }
-        
+        bs();
         t.start();
         
     }
+    public void bs (){
+        CadastroAluno c = new CadastroAluno();
+        CadastroDAO dao = new CadastroDAO();
+        
+        
+        try {
+            List<CadastroAluno> itens = dao.listar();
+            
+            
+            
+            
+        } catch (SQLException ex) {
+            System.out.println("erro....");
+        }
+        
+        
+    }
+    
+    
     public void ler() throws SQLException{
         DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
         model.setNumRows(0);
         CadastroDAO dao = new CadastroDAO();
-        
+        CadastroAluno c = new CadastroAluno();
         for(CadastroAluno ca:dao.listar()){
             model.addRow(new Object[]{
             ca.getCodigo(),
@@ -59,9 +80,8 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             ca.getRg(),
             ca.getCpf(),
             ca.getTipo(),
-            ca.getEntrada(),                
-        });
-                       
+            ca.getEntrada(),  
+            });
         }  
     }
     
