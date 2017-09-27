@@ -1,23 +1,22 @@
 package controle.acesso.bean;
 
-import java.util.Date;
-
 /**
  *
- * @author Developer
+ * @author Rafael Carvalho Caetano
  */
-public class Cadastro {
+public class CadastroAluno {
     
     
     private String id;
+    private String codigo;
     private String nome;
-    private String cpf;
     private String rg;
+    private String cpf;
+    private String curso;
     private String entrada;
     private String saida;
-    private String curso;
     
-   
+      
     /**
      * @return the id
      */
@@ -30,6 +29,20 @@ public class Cadastro {
      */
     public void setId(String id) {
         this.id = id;
+    }
+
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     /**
@@ -47,6 +60,20 @@ public class Cadastro {
     }
 
     /**
+     * @return the rg
+     */
+    public String getRg() {
+        return rg;
+    }
+
+    /**
+     * @param rg the rg to set
+     */
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    /**
      * @return the cpf
      */
     public String getCpf() {
@@ -61,19 +88,6 @@ public class Cadastro {
     }
 
     /**
-     * @return the rg
-     */
-    public String getRg() {
-        return rg;
-    }
-
-    /**
-     * @param rg the rg to set
-     */
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-    /**
      * @return the curso
      */
     public String getCurso() {
@@ -87,10 +101,12 @@ public class Cadastro {
         this.curso = curso;
     }
 
-    @Override
-    public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    
+    
+    public boolean hasMoreElements() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     /**
      * @return the entrada
      */
@@ -118,9 +134,9 @@ public class Cadastro {
     public void setSaida(String saida) {
         this.saida = saida;
     }
-     public boolean hasMoreElements() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
+    
+
 
 
     

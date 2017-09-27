@@ -559,6 +559,8 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         PAlunos.setVisible(false);
         txtCurso.setEnabled(false);
         
+        
+        
     }//GEN-LAST:event_btn_cadProfessoresMouseClicked
 
     private void btn_cadastrarAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cadastrarAlunoMouseClicked

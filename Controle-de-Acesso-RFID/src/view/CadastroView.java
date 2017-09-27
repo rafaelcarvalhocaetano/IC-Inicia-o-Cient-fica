@@ -1,7 +1,7 @@
 package view;
 
 import arduino.util.Arduino;
-import controle.acesso.bean.Cadastro;
+import controle.acesso.bean.CadastroAluno;
 import controle.acesso.dao.CadastroDAO;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -189,11 +189,11 @@ public class CadastroView extends javax.swing.JFrame {
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         
-        Cadastro c = new Cadastro();
+        CadastroAluno c = new CadastroAluno();
         CadastroDAO dao = new CadastroDAO();
         try{
-        List<Cadastro> lista = dao.listar();
-        for (Cadastro ca : lista) {
+        List<CadastroAluno> lista = dao.listarAluno();
+        for (CadastroAluno ca : lista) {
             
             if(a.read()==null || ca.getId().equalsIgnoreCase(tag.getText())){
                 System.out.println("EXISTENTE");
@@ -223,7 +223,7 @@ public class CadastroView extends javax.swing.JFrame {
         c.setEntrada(saida.getText());
         c.setSaida(saida.getText());
        
-        dao.cadastrar(c);
+        
         }catch(SQLException e){
             System.out.println("EXISTENTE");
         }
