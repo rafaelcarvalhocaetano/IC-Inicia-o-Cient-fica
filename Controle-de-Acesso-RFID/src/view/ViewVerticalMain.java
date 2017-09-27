@@ -2,7 +2,7 @@ package view;
 
 import arduino.ArduinoSerial;
 
-import controle.acesso.bean.CadastroAluno;
+import controle.acesso.bean.Cadastro;
 import controle.acesso.dao.CadastroDAO;
 import controle.acesso.factory.Conexao;
 import java.sql.Connection;
@@ -29,8 +29,8 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         @Override
         public void run() {
             as.initialize();
-            CadastroAluno ca = new CadastroAluno();
-            ler();
+            Cadastro ca = new Cadastro();
+            
             
             while (true) {
                 txtId.setText(as.read());
@@ -38,34 +38,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             }
         }
     };
-    Thread t2 = new Thread(){
-        @Override
-        public void run() {
-            CadastroDAO d = new CadastroDAO();
-            try {
-                while(true){
-                  
-                for(CadastroAluno c : d.listar()){
-                    
-                    txtId.setText(c.getCodigo());
-                    if(txtId.getText()!= null && txtId.getText() == as.read()){
-                        System.out.println("IGUAL");
-                        
-                    }else{
-                        System.out.println("diferente");
-                        return;
-                    }
-                    as.sleep(1000);
-                    
-                    
-                }
-                }
-                
-            } catch (SQLException ex) {
-                System.out.println("erro");
-            }
-        }
-    };
+    
 
     public ViewVerticalMain() {
         initComponents();
@@ -73,30 +46,39 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         tabelaControleAcesso.setRowSorter(new TableRowSorter(modelo));
         
         t.start();
-        t2.start();
+       ler();
         
-       
-       
         
     }
-    public void teste(){
-        if(as.read() != null){
-            DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
-            model.setNumRows(0);
-            CadastroDAO d = new CadastroDAO();
-            for(CadastroAluno c : d.)
-            
-            
-            
-        }
-    }
-
+    
+    /*
     public void ler() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
             model.setNumRows(0);
             CadastroDAO dao = new CadastroDAO();
-            for (CadastroAluno ca : dao.listar()) {
+            for (Cadastro ca : dao.listar()) {
+
+                model.addRow(new Object[]{
+                    ca.getCodigo(),
+                    ca.getNome(),
+                    ca.getRg(),
+                    ca.getCpf(),
+                    ca.getTipo()
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao LER");
+        }
+    }*/
+    public void ler(){
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
+            model.setNumRows(0);
+            CadastroDAO dao = new CadastroDAO();
+            Cadastro c = new Cadastro();
+            c.setCodigo(as.read());
+            for (Cadastro ca : dao.listarPorCodigo(txtId.getText())) {
 
                 model.addRow(new Object[]{
                     ca.getCodigo(),
@@ -703,7 +685,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
 
     private void salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salvarMouseClicked
 
-        CadastroAluno ca = new CadastroAluno();
+        Cadastro ca = new Cadastro();
         CadastroDAO dao = new CadastroDAO();
 
         ca.setCodigo(txtId.getText());

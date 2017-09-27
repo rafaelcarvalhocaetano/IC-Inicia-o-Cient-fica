@@ -1,6 +1,6 @@
 package controle.acesso.dao;
 
-import controle.acesso.bean.CadastroAluno;
+import controle.acesso.bean.Cadastro;
 import controle.acesso.factory.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public class CadastroDAO {
 
-    public ArrayList<CadastroAluno> listar() throws SQLException {
+    public ArrayList<Cadastro> listar() throws SQLException {
 
         StringBuilder sql = new StringBuilder();
 
@@ -27,11 +27,11 @@ public class CadastroDAO {
         PreparedStatement ps = conexao.prepareStatement(sql.toString());
 
         ResultSet r = ps.executeQuery();
-        ArrayList<CadastroAluno> itens = new ArrayList<CadastroAluno>();
+        ArrayList<Cadastro> itens = new ArrayList<Cadastro>();
 
         while (r.next()) {
 
-            CadastroAluno ca = new CadastroAluno();
+            Cadastro ca = new Cadastro();
             ca.setCodigo(r.getString("a.codigo"));
             ca.setNome(r.getString("a.nome"));
             ca.setRg(r.getString("a.rg"));
@@ -41,7 +41,7 @@ public class CadastroDAO {
         }
         return itens;
     }
-    public void salvar(CadastroAluno c) {
+    public void salvar(Cadastro c) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO arduino (codigo, nome, rg, cpf, curso, tipo) VALUES (?,?,?,?,?,?) ");
         
@@ -71,22 +71,31 @@ public class CadastroDAO {
         }
     }
     
-    public void buscar(){
+    public ArrayList<Cadastro> listarPorCodigo(String c) throws SQLException {
+
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM arduino WHERE codigo = ?");
-        try {
-            Connection conexao = Conexao.conexao();
-            PreparedStatement ps = conexao.prepareStatement(sql.toString());
-            ResultSet r = ps.executeQuery();
-            
-            while (r.next()) {
-               
-                
-            }
-        } catch (Exception e) {
-            System.out.println("Erro buscar");
-        }
+
+        sql.append("SELECT a.codigo, a.nome, a.rg, a.cpf, a.tipo ");
+        sql.append("FROM arduino a WHERE codigo = '"+c+"' ");
         
+        Connection conexao = Conexao.conexao();
+        PreparedStatement ps = conexao.prepareStatement(sql.toString());
+
+        ResultSet r = ps.executeQuery();
+        ArrayList<Cadastro> itens = new ArrayList<Cadastro>();
+
+        while (r.next()) {
+
+            Cadastro ca = new Cadastro();
+            ca.setCodigo(r.getString("a.codigo"));
+            ca.setNome(r.getString("a.nome"));
+            ca.setRg(r.getString("a.rg"));
+            ca.setCpf(r.getString("a.cpf"));
+            ca.setTipo(r.getString("a.tipo"));
+            itens.add(ca);
+        }
+        return itens;
     }
+    
     
 }

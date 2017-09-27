@@ -5,7 +5,7 @@
  */
 package view;
 
-import controle.acesso.bean.CadastroAluno;
+import controle.acesso.bean.Cadastro;
 
 import controle.acesso.dao.CadastroDAO;
 import java.sql.SQLException;
@@ -38,7 +38,7 @@ public class data {
        
        
         CadastroDAO dao = new CadastroDAO();
-        CadastroAluno ca = new CadastroAluno();
+        Cadastro ca = new Cadastro();
         
         ca.setCodigo("12345678");
         ca.setNome("Rafael Carvalho Caetano");

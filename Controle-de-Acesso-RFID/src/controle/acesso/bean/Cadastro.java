@@ -4,7 +4,7 @@ package controle.acesso.bean;
  *
  * @author Rafael Carvalho Caetano
  */
-public class CadastroAluno {
+public class Cadastro {
     
     
     private String id;
