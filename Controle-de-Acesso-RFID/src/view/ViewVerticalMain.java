@@ -5,6 +5,7 @@ import arduino.ArduinoSerial;
 import controle.acesso.bean.CadastroAluno;
 import controle.acesso.dao.CadastroDAO;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -15,18 +16,22 @@ import javax.swing.table.TableRowSorter;
 public class ViewVerticalMain extends javax.swing.JFrame {
 
     ArduinoSerial as = new ArduinoSerial("COM3");
+    Thread t = new Thread(){
+        @Override
+        public void run() {
+            as.initialize();
+            while(true){
+              txtId.setText(as.read());
+            }
+        }
+    };
     
     public ViewVerticalMain() {
-        initComponents();
-        as.initialize();
+        initComponents();        
         DefaultTableModel tb = new DefaultTableModel();
         tabelaControleAcesso.setRowSorter(new TableRowSorter(tb));
         
-        while (true) {            
-            txtId.setText(as.read());
-        }
         
-       
     }
     public void ler(){
         DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
@@ -409,7 +414,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         info.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         try {
-            txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+            txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -605,6 +610,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cadProfessoresMouseClicked
 
     private void btn_cadastrarAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cadastrarAlunoMouseClicked
+                
         PConexao.setVisible(true);
         PControleAcesso.setVisible(false);
         PAlunos.setVisible(false);
@@ -619,7 +625,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaControleAcessoKeyReleased
 
     private void salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salvarMouseClicked
-        
+       
        CadastroAluno ca = new CadastroAluno();
        CadastroDAO dao = new CadastroDAO();
        
@@ -629,7 +635,18 @@ public class ViewVerticalMain extends javax.swing.JFrame {
        ca.setCurso(txtCurso.getText());
        ca.setRg(txtRg.getText());
        ca.setCpf(txtCpf.getText());
-      
+       dao.salvar(ca);
+       System.out.println("SALVO COM SUCESSO");
+       
+       JOptionPane.showMessageDialog(null, "SALVO COM SUCESSO\n");
+       
+       //limpando campos
+       txtId.setText("");
+       txtNome.setText("");
+       tipo.getSelectedItem();
+       txtCurso.setText("");
+       txtRg.setText("");
+       txtCpf.setText("");
        
     }//GEN-LAST:event_salvarMouseClicked
 
