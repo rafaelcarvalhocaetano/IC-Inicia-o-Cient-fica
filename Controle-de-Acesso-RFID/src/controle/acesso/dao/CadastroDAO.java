@@ -18,19 +18,23 @@ public class CadastroDAO {
 
         StringBuilder sql = new StringBuilder();
 
-        sql.append("SELECT id ");
-        sql.append("FROM arduino");
+        sql.append("SELECT a.codigo, a.nome, a.rg, a.cpf, a.tipo ");
+        sql.append("FROM arduino a ");
         
         Connection conexao = Conexao.conexao();
         PreparedStatement ps = conexao.prepareStatement(sql.toString());
 
-        ResultSet resultado = ps.executeQuery();
+        ResultSet r = ps.executeQuery();
         ArrayList<CadastroAluno> itens = new ArrayList<CadastroAluno>();
 
-        while (resultado.next()) {
+        while (r.next()) {
 
             CadastroAluno ca = new CadastroAluno();
-            ca.setId(resultado.getString("id"));
+            ca.setCodigo(r.getString("a.codigo"));
+            ca.setNome(r.getString("a.nome"));
+            ca.setRg(r.getString("a.rg"));
+            ca.setCpf(r.getString("a.cpf"));
+            ca.setTipo(r.getString("a.tipo"));
             itens.add(ca);
         }
         return itens;

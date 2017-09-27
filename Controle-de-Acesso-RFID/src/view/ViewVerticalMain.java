@@ -5,6 +5,8 @@ import arduino.ArduinoSerial;
 import controle.acesso.bean.CadastroAluno;
 import controle.acesso.dao.CadastroDAO;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -19,37 +21,43 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     Thread t = new Thread(){
         @Override
         public void run() {
+            
             as.initialize();
             while(true){
               txtId.setText(as.read());
+                
             }
+            
         }
     };
     
     public ViewVerticalMain() {
         initComponents();        
-        DefaultTableModel tb = new DefaultTableModel();
-        tabelaControleAcesso.setRowSorter(new TableRowSorter(tb));
+        DefaultTableModel modelo = (DefaultTableModel) tabelaControleAcesso.getModel();
+        tabelaControleAcesso.setRowSorter(new TableRowSorter(modelo));
+        try {
+            ler();
+        } catch (SQLException ex) {
+            System.out.println("ERRO NA LISTA");
+        }
         
+        t.start();
         
     }
-    public void ler(){
+    public void ler() throws SQLException{
         DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
         model.setNumRows(0);
         CadastroDAO dao = new CadastroDAO();
         
-        try {
-            for(CadastroAluno ca:dao.listar()){
-                model.addRow(new Object[]{
-                ca.getCodigo(),
-                ca.getNome(),
-                ca.getRg(),
-                ca.getCpf()                
-            });
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erro no LER");
-        }
+        for(CadastroAluno ca:dao.listar()){
+            model.addRow(new Object[]{
+            ca.getCodigo(),
+            ca.getNome(),
+            ca.getRg(),
+            ca.getCpf(),
+            ca.getTipo()
+        });
+        }  
     }
     
    
@@ -318,15 +326,23 @@ public class ViewVerticalMain extends javax.swing.JFrame {
 
         tabelaControleAcesso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "NOME", "RG", "CPF"
+                "CÓDIGO", "NOME", "RG", "CPF", "TIPO", "ENTRADA", "SAÍDA"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelaControleAcesso.setGridColor(new java.awt.Color(255, 255, 255));
         tabelaControleAcesso.setSelectionBackground(new java.awt.Color(255, 255, 255));
         tabelaControleAcesso.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -335,6 +351,15 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tabelaControleAcesso);
+        if (tabelaControleAcesso.getColumnModel().getColumnCount() > 0) {
+            tabelaControleAcesso.getColumnModel().getColumn(0).setResizable(false);
+            tabelaControleAcesso.getColumnModel().getColumn(1).setResizable(false);
+            tabelaControleAcesso.getColumnModel().getColumn(2).setResizable(false);
+            tabelaControleAcesso.getColumnModel().getColumn(3).setResizable(false);
+            tabelaControleAcesso.getColumnModel().getColumn(4).setResizable(false);
+            tabelaControleAcesso.getColumnModel().getColumn(5).setResizable(false);
+            tabelaControleAcesso.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Close Window-30 (2).png"))); // NOI18N
@@ -353,7 +378,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 .addComponent(jLabel15))
             .addGroup(PControleAcessoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
                 .addContainerGap())
         );
         PControleAcessoLayout.setVerticalGroup(
