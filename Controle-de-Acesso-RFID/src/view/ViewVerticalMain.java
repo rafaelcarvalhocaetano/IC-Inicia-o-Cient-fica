@@ -7,6 +7,7 @@ import controle.acesso.dao.CadastroDAO;
 import controle.acesso.factory.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,20 +25,21 @@ import javax.swing.table.TableRowSorter;
 public class ViewVerticalMain extends javax.swing.JFrame {
 
     ArduinoSerial as = new ArduinoSerial("COM3");
-    Thread t = new Thread(){
+    Thread t = new Thread() {
         @Override
         public void run() {
-            
             as.initialize();
-            while(true){
-              txtId.setText(as.read());
+            verificar();
+
+            while (true) {
+                txtId.setText(as.read());
+                
             }
         }
     };
-    
+
     public ViewVerticalMain() {
         initComponents();
-       
         DefaultTableModel modelo = (DefaultTableModel) tabelaControleAcesso.getModel();
         tabelaControleAcesso.setRowSorter(new TableRowSorter(modelo));
         try {
@@ -45,47 +47,36 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println("ERRO NA LISTA");
         }
-        bs();
         t.start();
-        
     }
-    public void bs (){
-        CadastroAluno c = new CadastroAluno();
-        CadastroDAO dao = new CadastroDAO();
-        
-        
-        try {
-            List<CadastroAluno> itens = dao.listar();
-            
-            
-            
-            
-        } catch (SQLException ex) {
-            System.out.println("erro....");
-        }
-        
-        
-    }
-    
-    
-    public void ler() throws SQLException{
+    public void ler() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
         model.setNumRows(0);
         CadastroDAO dao = new CadastroDAO();
-        CadastroAluno c = new CadastroAluno();
-        for(CadastroAluno ca:dao.listar()){
+        for (CadastroAluno ca : dao.listar()) {
             model.addRow(new Object[]{
-            ca.getCodigo(),
-            ca.getNome(),
-            ca.getRg(),
-            ca.getCpf(),
-            ca.getTipo(),
-            ca.getEntrada(),  
-            });
-        }  
+                ca.getCodigo(),
+                ca.getNome(),
+                ca.getRg(),
+                ca.getCpf(),
+                ca.getTipo(),
+                ca.getEntrada(),});
+        }
     }
     
-   
+    
+    public void verificar(){
+        CadastroDAO dao = new CadastroDAO();
+        CadastroAluno c = new CadastroAluno();
+        c.setCodigo(as.read());
+        try {
+            dao.buscarPorCodigo(c);
+            System.out.println("CODIGO BUSCADO "+dao.buscarPorCodigo(c));
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewVerticalMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -659,50 +650,51 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         PControleAcesso.setVisible(false);
         PAlunos.setVisible(false);
         txtCurso.setEnabled(false);
-        
-        
-        
     }//GEN-LAST:event_btn_cadProfessoresMouseClicked
 
     private void btn_cadastrarAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cadastrarAlunoMouseClicked
-                
+
         PConexao.setVisible(true);
         PControleAcesso.setVisible(false);
         PAlunos.setVisible(false);
         txtCurso.setEnabled(true);
-        
-        
+
+
     }//GEN-LAST:event_btn_cadastrarAlunoMouseClicked
 
     private void tabelaControleAcessoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaControleAcessoKeyReleased
-        
-              
+
+
     }//GEN-LAST:event_tabelaControleAcessoKeyReleased
 
     private void salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salvarMouseClicked
-       
-       CadastroAluno ca = new CadastroAluno();
-       CadastroDAO dao = new CadastroDAO();
-       
-       ca.setCodigo(txtId.getText());
-       ca.setNome(txtNome.getText());
-       ca.setTipo((String) tipo.getSelectedItem());
-       ca.setCurso(txtCurso.getText());
-       ca.setRg(txtRg.getText());
-       ca.setCpf(txtCpf.getText());
-       dao.salvar(ca);
-       System.out.println("SALVO COM SUCESSO");
-       
-       JOptionPane.showMessageDialog(null, "SALVO COM SUCESSO\n");
-       
-       //limpando campos
-       txtId.setText("");
-       txtNome.setText("");
-       tipo.getSelectedItem();
-       txtCurso.setText("");
-       txtRg.setText("");
-       txtCpf.setText("");
-       
+
+        CadastroAluno ca = new CadastroAluno();
+        CadastroDAO dao = new CadastroDAO();
+
+        ca.setCodigo(txtId.getText());
+        ca.setNome(txtNome.getText());
+        ca.setTipo((String) tipo.getSelectedItem());
+        ca.setCurso(txtCurso.getText());
+        ca.setRg(txtRg.getText());
+        ca.setCpf(txtCpf.getText());
+        if (txtId.getText() == null || txtNome.getText() == null || txtCurso.getText() == null || txtCpf.getText() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Todos os Campos são obrigatórios", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        dao.salvar(ca);
+        JOptionPane.showMessageDialog(rootPane, "SALVO COM SUCESSO", "SALVO", JOptionPane.INFORMATION_MESSAGE);
+        System.out.println("SALVO COM SUCESSO");
+
+        //limpando campos
+        txtId.setText("");
+        txtNome.setText("");
+        tipo.getSelectedItem();
+        txtCurso.setText("");
+        txtRg.setText("");
+        txtCpf.setText("");
+
     }//GEN-LAST:event_salvarMouseClicked
 
     private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
@@ -711,7 +703,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarMouseClicked
 
     public static void main(String args[]) {
-       
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ViewVerticalMain().setVisible(true);
@@ -761,6 +753,4 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtRg;
     // End of variables declaration//GEN-END:variables
 
-   
-   
 }

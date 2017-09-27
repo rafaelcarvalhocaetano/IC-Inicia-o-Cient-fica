@@ -77,6 +77,34 @@ public class CadastroDAO {
             ex.printStackTrace();
         }
     }
+    public CadastroAluno buscarPorCodigo(CadastroAluno f) throws SQLException {
+
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT id, codigo ");
+		sql.append("FROM arduino ");
+		sql.append("WHERE codigo = ? ");
+
+
+		Connection conexao = Conexao.conexao();
+
+		PreparedStatement c = conexao.prepareStatement(sql.toString());
+		c.setString(1, f.getCodigo());
+                
+		ResultSet rs = c.executeQuery();
+
+		CadastroAluno r = null;
+
+		if (rs.next()) {
+			r = new CadastroAluno();
+                        r.setId("id");
+			r.setCodigo("codigo");
+		}
+
+		return r;
+
+	}
+    
     
 
     public void salvar(CadastroAluno c) {
@@ -112,6 +140,6 @@ public class CadastroDAO {
             System.out.println("ERRO AO SALVAR O ALUNO NA CAMADA DAO");
             ex.printStackTrace();
         }
-
     }
+    
 }
