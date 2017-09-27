@@ -41,105 +41,52 @@ public class CadastroDAO {
         }
         return itens;
     }
-    public void initSave(CadastroAluno c){
-        StringBuilder sql = new StringBuilder();
-        
-        sql.append("INSERT INTO arduino (id, codigo, nome, rg, cpf, curso, entrada, saida, tipo) VALUES (?,?,?,?,?,?,?,?, ?) ");
-        sql.append(" WHERE codigo = ? ");
-        Connection con;
-        try {
-
-            con = Conexao.conexao();
-            PreparedStatement ptt = con.prepareStatement(sql.toString());
-            
-            ptt.setString(1, c.getId());
-            ptt.setString(2, c.getCodigo());
-            ptt.setString(3, c.getNome());
-            ptt.setString(4, c.getRg());
-            ptt.setString(5, c.getCpf());
-            ptt.setString(6, c.getCurso());
-            
-            Date hj = new Date();
-            SimpleDateFormat sp = new SimpleDateFormat("dd/MM/yyyyy HH:mm:ss");
-            c.setEntrada(sp.format(hj));
-            c.setSaida(sp.format(hj));
-            
-            ptt.setString(7, c.getEntrada());
-            ptt.setString(8, c.getSaida());
-            ptt.setString(9, c.getTipo());
-           
-            ptt.executeUpdate();
-
-            System.out.println("SALVO COM SUCESSO " + c.getCodigo());
-
-        } catch (SQLException ex) {
-            System.out.println("ERRO AO SALVAR INITSAVE DAO");
-            ex.printStackTrace();
-        }
-    }
-    public CadastroAluno buscarPorCodigo(CadastroAluno f) throws SQLException {
-
-		StringBuilder sql = new StringBuilder();
-
-		sql.append("SELECT id, codigo ");
-		sql.append("FROM arduino ");
-		sql.append("WHERE codigo = ? ");
-
-
-		Connection conexao = Conexao.conexao();
-
-		PreparedStatement c = conexao.prepareStatement(sql.toString());
-		c.setString(1, f.getCodigo());
-                
-		ResultSet rs = c.executeQuery();
-
-		CadastroAluno r = null;
-
-		if (rs.next()) {
-			r = new CadastroAluno();
-                        r.setId("id");
-			r.setCodigo("codigo");
-		}
-
-		return r;
-
-	}
-    
-    
-
     public void salvar(CadastroAluno c) {
         StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO arduino (id, codigo, nome, rg, cpf, curso, tipo) VALUES (?,?,?,?,?,?,?) ");
+        sql.append("INSERT INTO arduino (codigo, nome, rg, cpf, curso, tipo) VALUES (?,?,?,?,?,?) ");
         
         Connection con;
         try {
-
             con = Conexao.conexao();
             PreparedStatement ptt = con.prepareStatement(sql.toString());
             
-            ptt.setString(1, c.getId());
-            ptt.setString(2, c.getCodigo());
-            ptt.setString(3, c.getNome());
-            ptt.setString(4, c.getRg());
-            ptt.setString(5, c.getCpf());
-            ptt.setString(6, c.getCurso());
+            
+            ptt.setString(1, c.getCodigo());
+            ptt.setString(2, c.getNome());
+            ptt.setString(3, c.getRg());
+            ptt.setString(4, c.getCpf());
+            ptt.setString(5, c.getCurso());
             /*
             Date hj = new Date();
             SimpleDateFormat sp = new SimpleDateFormat("dd/MM/yyyyy HH:mm:ss");
             c.setEntrada(sp.format(hj));
             c.setSaida(sp.format(hj));
             */
-        
-            ptt.setString(7, c.getTipo());
-           
+            ptt.setString(6, c.getTipo());
             ptt.executeUpdate();
-
             System.out.println("SALVO COM SUCESSO " + c.getId());
-
         } catch (SQLException ex) {
             System.out.println("ERRO AO SALVAR O ALUNO NA CAMADA DAO");
             ex.printStackTrace();
         }
+    }
+    
+    public void buscar(){
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM arduino WHERE codigo = ?");
+        try {
+            Connection conexao = Conexao.conexao();
+            PreparedStatement ps = conexao.prepareStatement(sql.toString());
+            ResultSet r = ps.executeQuery();
+            
+            while (r.next()) {
+               
+                
+            }
+        } catch (Exception e) {
+            System.out.println("Erro buscar");
+        }
+        
     }
     
 }

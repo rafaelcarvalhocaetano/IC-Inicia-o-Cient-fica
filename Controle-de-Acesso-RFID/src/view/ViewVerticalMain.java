@@ -29,11 +29,40 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         @Override
         public void run() {
             as.initialize();
-            verificar();
-
+            CadastroAluno ca = new CadastroAluno();
+            ler();
+            
             while (true) {
                 txtId.setText(as.read());
+
+            }
+        }
+    };
+    Thread t2 = new Thread(){
+        @Override
+        public void run() {
+            CadastroDAO d = new CadastroDAO();
+            try {
+                while(true){
+                  
+                for(CadastroAluno c : d.listar()){
+                    
+                    txtId.setText(c.getCodigo());
+                    if(txtId.getText()!= null && txtId.getText() == as.read()){
+                        System.out.println("IGUAL");
+                        
+                    }else{
+                        System.out.println("diferente");
+                        return;
+                    }
+                    as.sleep(1000);
+                    
+                    
+                }
+                }
                 
+            } catch (SQLException ex) {
+                System.out.println("erro");
             }
         }
     };
@@ -42,38 +71,43 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         initComponents();
         DefaultTableModel modelo = (DefaultTableModel) tabelaControleAcesso.getModel();
         tabelaControleAcesso.setRowSorter(new TableRowSorter(modelo));
-        try {
-            ler();
-        } catch (SQLException ex) {
-            System.out.println("ERRO NA LISTA");
-        }
+        
         t.start();
+        t2.start();
+        
+       
+       
+        
     }
-    public void ler() throws SQLException {
-        DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
-        model.setNumRows(0);
-        CadastroDAO dao = new CadastroDAO();
-        for (CadastroAluno ca : dao.listar()) {
-            model.addRow(new Object[]{
-                ca.getCodigo(),
-                ca.getNome(),
-                ca.getRg(),
-                ca.getCpf(),
-                ca.getTipo(),
-                ca.getEntrada(),});
+    public void teste(){
+        if(as.read() != null){
+            DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
+            model.setNumRows(0);
+            CadastroDAO d = new CadastroDAO();
+            for(CadastroAluno c : d.)
+            
+            
+            
         }
     }
-    
-    
-    public void verificar(){
-        CadastroDAO dao = new CadastroDAO();
-        CadastroAluno c = new CadastroAluno();
-        c.setCodigo(as.read());
+
+    public void ler() {
         try {
-            dao.buscarPorCodigo(c);
-            System.out.println("CODIGO BUSCADO "+dao.buscarPorCodigo(c));
-        } catch (SQLException ex) {
-            Logger.getLogger(ViewVerticalMain.class.getName()).log(Level.SEVERE, null, ex);
+            DefaultTableModel model = (DefaultTableModel) tabelaControleAcesso.getModel();
+            model.setNumRows(0);
+            CadastroDAO dao = new CadastroDAO();
+            for (CadastroAluno ca : dao.listar()) {
+
+                model.addRow(new Object[]{
+                    ca.getCodigo(),
+                    ca.getNome(),
+                    ca.getRg(),
+                    ca.getCpf(),
+                    ca.getTipo()
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao LER");
         }
     }
 
@@ -680,6 +714,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         ca.setCpf(txtCpf.getText());
         if (txtId.getText() == null || txtNome.getText() == null || txtCurso.getText() == null || txtCpf.getText() == null) {
             JOptionPane.showMessageDialog(rootPane, "Todos os Campos são obrigatórios", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
+            System.out.println("erro aqui");
             return;
         }
 
