@@ -328,7 +328,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             .addGroup(PAlunosLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(PAlunosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PAlunosLayout.createSequentialGroup()
@@ -485,6 +485,11 @@ public class ViewVerticalMain extends javax.swing.JFrame {
 
         cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Delete-30.png"))); // NOI18N
         cancelar.setText("CANCELAR");
+        cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelarMouseClicked(evt);
+            }
+        });
 
         txtId.setBackground(new java.awt.Color(27, 64, 90));
         txtId.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -540,7 +545,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                                     .addComponent(cancelar)
                                     .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         PConexaoLayout.setVerticalGroup(
             PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -699,6 +704,11 @@ public class ViewVerticalMain extends javax.swing.JFrame {
        txtCpf.setText("");
        
     }//GEN-LAST:event_salvarMouseClicked
+
+    private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
+        PConexao.setVisible(false);
+        PControleAcesso.setVisible(true);
+    }//GEN-LAST:event_cancelarMouseClicked
 
     public static void main(String args[]) {
        
