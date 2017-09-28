@@ -7,7 +7,7 @@ package controle.acesso.bean;
 public class Cadastro {
     
     
-    private String id;
+    private int id;
     private String codigo;
     private String nome;
     private String rg;
@@ -18,19 +18,7 @@ public class Cadastro {
     private String tipo;
     
       
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+    
 
     /**
      * @return the codigo
@@ -148,6 +136,20 @@ public class Cadastro {
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     

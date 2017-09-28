@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,13 +21,13 @@ public class CadastroDAO {
     public ArrayList<Cadastro> listar() throws SQLException {
 
         StringBuilder sql = new StringBuilder();
-
+        
         sql.append("SELECT a.codigo, a.nome, a.rg, a.cpf, a.tipo ");
         sql.append("FROM arduino a ");
         
         Connection conexao = Conexao.conexao();
         PreparedStatement ps = conexao.prepareStatement(sql.toString());
-
+        
         ResultSet r = ps.executeQuery();
         ArrayList<Cadastro> itens = new ArrayList<Cadastro>();
 
@@ -76,11 +78,11 @@ public class CadastroDAO {
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT a.codigo, a.nome, a.rg, a.cpf, a.tipo ");
-        sql.append("FROM arduino a WHERE codigo = '"+c+"' ");
+        sql.append("FROM arduino a WHERE codigo = 1 ");
         
         Connection conexao = Conexao.conexao();
         PreparedStatement ps = conexao.prepareStatement(sql.toString());
-
+        ps.setString(1, c);
         ResultSet r = ps.executeQuery();
         ArrayList<Cadastro> itens = new ArrayList<Cadastro>();
 
@@ -96,6 +98,30 @@ public class CadastroDAO {
         }
         return itens;
     }
+    public Cadastro buscarPorCodigo(Cadastro f) throws SQLException {
+
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT * FROM arduino WHERE id = ? ");
+		
+		Connection conexao = Conexao.conexao();
+
+		PreparedStatement comando = conexao.prepareStatement(sql.toString());
+		comando.setInt(1, f.getId());
+
+		ResultSet resultado = comando.executeQuery();
+
+		Cadastro retorno = null;
+
+		if (resultado.next()) {
+			retorno = new Cadastro();
+			retorno.setCodigo(resultado.getString("codigo"));
+			retorno.setNome(resultado.getString("nome"));
+		}
+
+		return retorno;
+
+	}
     
-    
+   
 }
