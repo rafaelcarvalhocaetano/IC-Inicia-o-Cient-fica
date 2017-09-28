@@ -58,6 +58,7 @@ public class CadastroDAO {
             ptt.setString(3, c.getRg());
             ptt.setString(4, c.getCpf());
             ptt.setString(5, c.getCurso());
+           
             /*
             Date hj = new Date();
             SimpleDateFormat sp = new SimpleDateFormat("dd/MM/yyyyy HH:mm:ss");
@@ -76,21 +77,22 @@ public class CadastroDAO {
     public ArrayList<Cadastro> listarPorCodigo(String c) throws SQLException {
 
         StringBuilder sql = new StringBuilder();
+        Cadastro ca = null;
+        ArrayList<Cadastro> itens = new ArrayList<Cadastro>();
 
-        sql.append("SELECT a.codigo, a.nome, a.rg, a.cpf, a.tipo ");
-        sql.append("FROM arduino a WHERE codigo = 1 ");
+        sql.append("SELECT a.codigo, a.nome, a.rg, a.cpf, a.curso, a.tipo ");
+        sql.append("FROM arduino a WHERE codigo = ? ");
         
         Connection conexao = Conexao.conexao();
         PreparedStatement ps = conexao.prepareStatement(sql.toString());
         ps.setString(1, c);
         ResultSet r = ps.executeQuery();
-        ArrayList<Cadastro> itens = new ArrayList<Cadastro>();
-
         while (r.next()) {
 
-            Cadastro ca = new Cadastro();
+            ca = new Cadastro();
             ca.setCodigo(r.getString("a.codigo"));
             ca.setNome(r.getString("a.nome"));
+            ca.setCurso(r.getString("a.curso"));
             ca.setRg(r.getString("a.rg"));
             ca.setCpf(r.getString("a.cpf"));
             ca.setTipo(r.getString("a.tipo"));
@@ -98,30 +100,4 @@ public class CadastroDAO {
         }
         return itens;
     }
-    public Cadastro buscarPorCodigo(Cadastro f) throws SQLException {
-
-		StringBuilder sql = new StringBuilder();
-
-		sql.append("SELECT * FROM arduino WHERE id = ? ");
-		
-		Connection conexao = Conexao.conexao();
-
-		PreparedStatement comando = conexao.prepareStatement(sql.toString());
-		comando.setInt(1, f.getId());
-
-		ResultSet resultado = comando.executeQuery();
-
-		Cadastro retorno = null;
-
-		if (resultado.next()) {
-			retorno = new Cadastro();
-			retorno.setCodigo(resultado.getString("codigo"));
-			retorno.setNome(resultado.getString("nome"));
-		}
-
-		return retorno;
-
-	}
-    
-   
 }

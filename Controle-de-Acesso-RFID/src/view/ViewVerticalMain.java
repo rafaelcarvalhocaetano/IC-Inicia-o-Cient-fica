@@ -34,7 +34,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
            
             while (true) {
                 txtId.setText(as.read());
-                 
+                codigo.setText(as.read());
 
             }
         }
@@ -76,15 +76,17 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         main = new javax.swing.JPanel();
         PControle = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        lista = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         buscando = new javax.swing.JLabel();
+        codigo = new javax.swing.JLabel();
         PInfor = new javax.swing.JPanel();
         btn_aluno = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btn_cadProfessores = new javax.swing.JLabel();
         btn_cadastrarAluno = new javax.swing.JLabel();
+        BUSCAR = new javax.swing.JButton();
         PAlunos = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -121,7 +123,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
 
         PControle.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        lista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -129,15 +131,26 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "CÓDIGO", "NOME", "RG", "CPF"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(lista);
+        if (lista.getColumnModel().getColumnCount() > 0) {
+            lista.getColumnModel().getColumn(0).setResizable(false);
+            lista.getColumnModel().getColumn(1).setResizable(false);
+            lista.getColumnModel().getColumn(2).setResizable(false);
+            lista.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jButton1.setText("buscar");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -146,6 +159,10 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         buscando.setText("Buscando ...");
         buscando.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        codigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        codigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        codigo.setText("CÓDIGO");
+
         javax.swing.GroupLayout PControleLayout = new javax.swing.GroupLayout(PControle);
         PControle.setLayout(PControleLayout);
         PControleLayout.setHorizontalGroup(
@@ -153,23 +170,30 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(284, 284, 284))
             .addGroup(PControleLayout.createSequentialGroup()
                 .addGap(312, 312, 312)
                 .addComponent(buscando, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(54, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PControleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(284, 284, 284))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
+                        .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(268, 268, 268))))
         );
         PControleLayout.setVerticalGroup(
             PControleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PControleLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120)
+                .addGap(44, 44, 44)
+                .addComponent(codigo)
+                .addGap(62, 62, 62)
                 .addComponent(buscando)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(53, 53, 53))
         );
@@ -225,14 +249,17 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             }
         });
 
+        BUSCAR.setText("jButton2");
+        BUSCAR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BUSCARMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout PInforLayout = new javax.swing.GroupLayout(PInfor);
         PInfor.setLayout(PInforLayout);
         PInforLayout.setHorizontalGroup(
             PInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PInforLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PInforLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel8)
@@ -240,6 +267,15 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             .addComponent(btn_aluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_cadastrarAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_cadProfessores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PInforLayout.createSequentialGroup()
+                .addGroup(PInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PInforLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PInforLayout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(BUSCAR)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         PInforLayout.setVerticalGroup(
             PInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +290,9 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 .addComponent(btn_cadastrarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_cadProfessores, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BUSCAR)
+                .addGap(53, 53, 53))
         );
 
         PAlunos.setBackground(new java.awt.Color(255, 255, 255));
@@ -563,13 +601,11 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             .addComponent(PInfor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(mainLayout.createSequentialGroup()
                 .addComponent(PConexao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 32, Short.MAX_VALUE))
             .addGroup(mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(PAlunos, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
             .addGroup(mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(mainLayout.createSequentialGroup()
-                    .addComponent(PControle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(PControle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -648,6 +684,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
 
     private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
         PConexao.setVisible(false);
+        
     }//GEN-LAST:event_cancelarMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -657,6 +694,39 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void BUSCARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BUSCARMouseClicked
+       PControle.setVisible(true);
+       PConexao.setVisible(false);
+       PAlunos.setVisible(false);
+      
+    }//GEN-LAST:event_BUSCARMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        CadastroDAO dao = new CadastroDAO();
+        //Cadastro c = new Cadastro();
+        String a = codigo.getText();
+        String b = as.read();
+        
+        try {
+            //dao.listarPorCodigo(a);
+            for(Cadastro c : dao.listarPorCodigo(a)){
+                buscando.setText("Testando antes");
+                buscando.setText("Código: "+c.getCodigo()+" Nome: "+c.getNome()+"CURSO: "+c.getCurso());
+                dao.salvar(c);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewVerticalMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        
+            
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
 
@@ -668,6 +738,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BUSCAR;
     private javax.swing.JPanel PAlunos;
     private javax.swing.JPanel PConexao;
     private javax.swing.JPanel PControle;
@@ -677,6 +748,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     private javax.swing.JLabel btn_cadastrarAluno;
     private javax.swing.JLabel buscando;
     private javax.swing.JLabel cancelar;
+    private javax.swing.JLabel codigo;
     private javax.swing.JLabel info;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox4;
@@ -695,9 +767,9 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbInformacao;
+    private javax.swing.JTable lista;
     private javax.swing.JPanel main;
     private javax.swing.JLabel salvar;
     private javax.swing.JTable tabela;
