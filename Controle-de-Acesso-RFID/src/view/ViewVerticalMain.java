@@ -31,23 +31,60 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         @Override
         public void run() {
             as.initialize();
-           
+            
             while (true) {
                 txtId.setText(as.read());
                 codigo.setText(as.read());
-
             }
         }
     };
+    
     public ViewVerticalMain() {
         initComponents();
        
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        tabela.setRowSorter(new TableRowSorter(modelo));
-       
+        DefaultTableModel modelo1 = (DefaultTableModel) tabela.getModel();
+        DefaultTableModel modelo2 = (DefaultTableModel) lista.getModel();
+        tabela.setRowSorter(new TableRowSorter(modelo1));
+        lista.setRowSorter(new TableRowSorter(modelo2));
+      
         t.start();
         ler();
+        //listando.start();
     }
+    
+/*
+    Thread listando = new Thread(){
+        @Override
+        public void run() {
+        CadastroDAO dao = new CadastroDAO();
+        //Cadastro c = new Cadastro();
+        String a = codigo.getText();
+       // String b = as.read();
+        
+        DefaultTableModel model = (DefaultTableModel) lista.getModel();
+        model.setNumRows(0);
+        
+        try {
+            //dao.listarPorCodigo(a);
+            for(Cadastro c : dao.listarPorCodigo(a)){
+                model.addRow(new Object[]{
+                    c.getCodigo(),
+                    c.getNome(),
+                    c.getCurso(),
+                    c.getTipo()
+                });
+                //buscando.setText("Código: "+c.getCodigo()+" Nome: "+c.getNome()+"CURSO: "+c.getCurso());
+                dao.salvar(c);
+                codigo.setText("");
+                as.sleep(1000);
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("ERRO ...ERRO ...");
+        }
+        }
+    };
+*/
     public void ler() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabela.getModel();
@@ -77,7 +114,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         PControle = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lista = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btn_buscando = new javax.swing.JButton();
         buscando = new javax.swing.JLabel();
         codigo = new javax.swing.JLabel();
         PInfor = new javax.swing.JPanel();
@@ -142,15 +179,15 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             lista.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jButton1.setText("buscar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_buscando.setText("buscar");
+        btn_buscando.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btn_buscandoMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_buscando.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_buscandoActionPerformed(evt);
             }
         });
 
@@ -178,7 +215,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PControleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btn_buscando)
                         .addGap(284, 284, 284))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
                         .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,7 +231,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addComponent(buscando)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btn_buscando)
                 .addGap(53, 53, 53))
         );
 
@@ -647,8 +684,6 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         PConexao.setVisible(true);
         PAlunos.setVisible(false);
         txtCurso.setEnabled(true);
-
-
     }//GEN-LAST:event_btn_cadastrarAlunoMouseClicked
 
     private void salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salvarMouseClicked
@@ -684,16 +719,15 @@ public class ViewVerticalMain extends javax.swing.JFrame {
 
     private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
         PConexao.setVisible(false);
-        
     }//GEN-LAST:event_cancelarMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btn_buscandoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscandoMouseClicked
         
         
         
         
         
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btn_buscandoMouseClicked
 
     private void BUSCARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BUSCARMouseClicked
        PControle.setVisible(true);
@@ -702,31 +736,37 @@ public class ViewVerticalMain extends javax.swing.JFrame {
       
     }//GEN-LAST:event_BUSCARMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+    private void btn_buscandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscandoActionPerformed
         
         CadastroDAO dao = new CadastroDAO();
         //Cadastro c = new Cadastro();
         String a = codigo.getText();
-        String b = as.read();
+        //String b = as.read();
         
+        DefaultTableModel model = (DefaultTableModel) lista.getModel();
+        model.setNumRows(0);
         try {
             //dao.listarPorCodigo(a);
             for(Cadastro c : dao.listarPorCodigo(a)){
-                buscando.setText("Testando antes");
-                buscando.setText("Código: "+c.getCodigo()+" Nome: "+c.getNome()+"CURSO: "+c.getCurso());
-                dao.salvar(c);
+                model.addRow(new Object[]{
+                    c.getCodigo(),
+                    c.getNome(),
+                    c.getCurso(),
+                    c.getTipo()
+                });
+                //buscando.setText("Código: "+c.getCodigo()+" Nome: "+c.getNome()+"CURSO: "+c.getCurso());
+                if(a != null){
+                    dao.salvar(c);
+                }
+                codigo.setText("");
+                
+                
             }
-            
         } catch (SQLException ex) {
-            Logger.getLogger(ViewVerticalMain.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERRO ...ERRO ...");
         }
-            
-        
-            
-        
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_buscandoActionPerformed
 
     public static void main(String args[]) {
 
@@ -744,13 +784,13 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     private javax.swing.JPanel PControle;
     private javax.swing.JPanel PInfor;
     private javax.swing.JLabel btn_aluno;
+    private javax.swing.JButton btn_buscando;
     private javax.swing.JLabel btn_cadProfessores;
     private javax.swing.JLabel btn_cadastrarAluno;
     private javax.swing.JLabel buscando;
     private javax.swing.JLabel cancelar;
     private javax.swing.JLabel codigo;
     private javax.swing.JLabel info;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
