@@ -49,3 +49,28 @@
 - METODOLOGIAS
 
 - EMBASAMENTO BIBLIOGÁFICO
+  ALVES, Fagner Valério de Freitas. Utilização de Web Services para Integração de Sistemas. São Paulo: FATEC-SP, 2012.
+
+  BLUM, Jeremy. Explorando o Arduino. Técnicas e Ferramentas para Magicas de Engenharia. Ed. Alta Books
+
+  CAIÇARA JUNIOR, Cícero. Sistemas integrados de gestão - ERP: uma abordagem gerencial. 4. ed. rev., atual. e ampl. - Curitiba: Ibpex, 2011.
+
+  CRUZ, Rodrigo Rohling; JUNIOR, Sandro Dutra do Nascimento. Biometria Aplicada a Segurança Residencial. Ivaiporã: Faculdades Integradas do Vale do Ivaí, 2013.
+
+  IDEF. Integrated Definition Methods (IDEF). Disponível em: http://www.idef.com/idefo-function_modeling_method. Acesso em: 25/10/2017.
+
+  MENDES, J. V. ESCRIVÃO FILHO, E. (2002) Sistemas Integrados de Gestão ERP em Pequenas Empresas: Um Confronto entre o Referencial Teórico e a Prática Empresarial. Disponível: http://www.scielo.br/pdf/gp/v9n3/14570.pdf. Acesso em 24/09/2017
+
+  PAULA FILHO, Wilson de Pádua. Engenharia de Software: fundamentos, métodos e padrões. Rio de Janeiro: LTC, 2003.
+
+  PFLEEGER, Shari Lawrence. Engenharia de Software: teoria e prática. 2. edição. São Paulo: Pearson, 2004.
+
+  PRESSMAN, Roger S. Engenharia de software. 3. ed. São Paulo: Makron Books, 2006.
+
+  SOMMERVILLE, Ian. Engenharia de Software. São Paulo: Addison-Wesley, 2007.
+
+  SOUZA, Rodrigo Guedes. Desenvolvimento De Uma Aplicação Frente De Caixa
+
+  Automatizada para O Varejo Utilizando Java E RFID. Maringá: Centro Universitário de Maringá, 2005.
+
+  UNIÃO, Tribunal de Contas. Boas Práticas em Segurança da Informação. 4º. Edição. Brasília: Addison-Wesley, 2012.
