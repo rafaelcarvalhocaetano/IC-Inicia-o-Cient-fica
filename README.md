@@ -5,7 +5,7 @@
 
   Integração de Sistemas aplicando tecnologia RFID como controle de acesso.
 
- - RESUMO
+- RESUMO
   
   <p>No decorrer dos últimos anos da tecnologia da informação e a rápida evolução de diversas tecnologias e sistemas, muitas empresas buscaram diversas soluções para atender as necessidades para o bom desenvolvimento dos negócios, buscando atender suas demandas e operações para seu crescimento e sustentação no mercado.</p>
   
