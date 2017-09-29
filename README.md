@@ -19,11 +19,11 @@
   
   <p>No decorrer dos últimos anos da tecnologia da informação e a rápida evolução de diversas tecnologias e sistemas, muitas empresas buscaram e adquiriram diversas soluções de sistemas e aplicações para atender as suas necessidades operacionais e estratégicas, visando apenas o desenvolvimento dos seus negócios, buscando atender suas demandas e operações para seu crescimento e sustentação no mercado.</p>
 
-<p>Com a globalização dos mercados altamente competitivos e em muitas vezes em tempo real, as empresas buscaram soluções para integrar seus sistemas com o objetivo de melhorar seus processos, melhorar seus fluxos para que suas operações possam de alguma forma manter e crescer sua competitividade dentro da sua área de mercado.</p>
+  <p>Com a globalização dos mercados altamente competitivos e em muitas vezes em tempo real, as empresas buscaram soluções para integrar seus sistemas com o objetivo de melhorar seus processos, melhorar seus fluxos para que suas operações possam de alguma forma manter e crescer sua competitividade dentro da sua área de mercado.</p>
 
   <p>Motivado pelo crescimento acelerado de suas estruturas a tecnologia da informação tem sido fundamental para atingir seus objetivos, ditando definindo as estratégias das empresas, tornando se essencial para a sobrevivência e crescimento das diversas empresas em todos os segmentos de mercado.</p>
 
-<p>Motivado a atender as necessidades de suas demandas, muitas empresas adquiriram diversas soluções de sistemas, aplicações e infraestrutura sem um planejamento a longo prazo, buscando apenas suprir suas necessidades operacionais a curto e médio prazo, gerando em diversas vezes problemas de segurança de suas operações e informações.</p>
+  <p>Motivado a atender as necessidades de suas demandas, muitas empresas adquiriram diversas soluções de sistemas, aplicações e infraestrutura sem um planejamento a longo prazo, buscando apenas suprir suas necessidades operacionais a curto e médio prazo, gerando em diversas vezes problemas de segurança de suas operações e informações.</p>
 
 <p>As empresas atualmente ainda enfrentam dificuldades para efetuar a integração de seus sistemas, deixando muitas vezes de lado no planejamento dos projetos das integrações dos sistemas a segurança e controle de acesso.</p>
 
