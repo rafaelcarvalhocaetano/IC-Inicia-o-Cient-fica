@@ -40,9 +40,9 @@
 
   Este trabalho, tem como objetivo geral realizar o estudo de melhorias e problemas encontrados no acesso a sistemas corporativos. Pesquisando sobre as necessidades de diversas empresas em integrar seus sistemas de forma mais eficiente e eficaz e seus problemas e dificuldades encontrados.
 
-  A partir dos resultados obtidos neste estudo, este trabalho tem como objetivo especifico o desenvolvimento de uma aplicação de controle de acesso que atenda a integração de diversos sistemas corporativos nas empresas, buscando corrigir e controlar o acesso aos diversos sistemas e aplicações integrados. O desenvolvimento da aplicação de controle de acesso com base em frameworks Java Script, como VUE, HTML e CSS. A utilização do banco de dados MYSQL com Electron.
-
 - OBJETIVO ESPECÍFICOS
+  
+   A partir dos resultados obtidos neste estudo, este trabalho tem como objetivo especifico o desenvolvimento de uma aplicação de controle de acesso que atenda a integração de diversos sistemas corporativos nas empresas, buscando corrigir e controlar o acesso aos diversos sistemas e aplicações integrados. O desenvolvimento da aplicação de controle de acesso com base em frameworks Java Script, como VUE, HTML e CSS. A utilização do banco de dados MYSQL com Electron.
 
 - BASE BIBLIOGRÁFICA
 
