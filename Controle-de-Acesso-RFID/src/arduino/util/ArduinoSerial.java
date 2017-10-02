@@ -123,8 +123,8 @@ public class ArduinoSerial implements SerialPortEventListener {
      * @param oEvent
      */
     @Override
-    public synchronized void serialEvent(SerialPortEvent oEvent) {
-        if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+    public synchronized void serialEvent(SerialPortEvent evv) {
+        if (evv.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
             try {
                 inputLine = input.readLine();
             } catch (Exception e) {
@@ -133,13 +133,4 @@ public class ArduinoSerial implements SerialPortEventListener {
         }
         // Ignore all the other eventTypes, but you should consider the other ones.
     }
-
-    public void hashCode(int n) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void serialEvent(int n) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
