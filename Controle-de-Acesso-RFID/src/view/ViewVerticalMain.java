@@ -15,17 +15,8 @@ import javax.swing.table.TableRowSorter;
 public class ViewVerticalMain extends javax.swing.JFrame {
 
     ArduinoSerial as = new ArduinoSerial("COM3");
-    Thread t = new Thread() {
-        @Override
-        public void run() {
-            as.initialize();
-            
-            while (true) {
-                txtId.setText(as.read());
-                codigo.setText(as.read());
-            }
-        }
-    };
+    
+    public boolean flag = true;
     
     public ViewVerticalMain() {
         initComponents();
@@ -34,25 +25,49 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         DefaultTableModel modelo2 = (DefaultTableModel) lista.getModel();
         tabela.setRowSorter(new TableRowSorter(modelo1));
         lista.setRowSorter(new TableRowSorter(modelo2));
-      
-        t.start();
-        //ler();
         
-        if(true){
-            new Cadastro();
-            controlarAcesso.start();
-            codigo.setText("");
-        }
+        //atualizar();
+        as.initialize();
+        
+      
+       t.start();
+      
+        
+        /*
+        as.send("");
+        codigo.setText("");
+        txtId.setText("");
+        controlarAcesso.start();
+       */
     }
+     
+   
+    Thread t = new Thread() {
+       
+        
+        
+        @Override
+        public void run() {
+           while(flag){
+               txtId.setText(as.read());
+               codigo.setText(as.read());
+               System.out.println(txtId.getText());
+               
+           }
+        } 
+       
+    };
+        
+    
+    
+    /*
 
     Thread controlarAcesso = new Thread(){
         @Override
         public void run() {
         
         CadastroDAO dao = new CadastroDAO();
-        //Cadastro c = new Cadastro();
         String a = codigo.getText();
-       // String b = as.read();
         
         DefaultTableModel model = (DefaultTableModel) lista.getModel();
         model.setNumRows(0);
@@ -69,6 +84,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 //buscando.setText("Código: "+c.getCodigo()+" Nome: "+c.getNome()+"CURSO: "+c.getCurso());
                 dao.salvar(c);
                 codigo.setText("");
+                as.send("");
                 as.sleep(1000);
             }
             
@@ -77,6 +93,40 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         }
         }
     };
+    public void atualizar(){
+        
+        CadastroDAO dao = new CadastroDAO();
+        String a = codigo.getText();
+        
+        DefaultTableModel model = (DefaultTableModel) lista.getModel();
+        model.setNumRows(0);
+        
+        try {
+            //dao.listarPorCodigo(a);
+            for(Cadastro c : dao.listarPorCodigo(a)){
+                model.addRow(new Object[]{
+                    c.getCodigo(),
+                    c.getNome(),
+                    c.getCurso(),
+                    c.getTipo()
+                });
+                //buscando.setText("Código: "+c.getCodigo()+" Nome: "+c.getNome()+"CURSO: "+c.getCurso());
+                dao.salvar(c);
+                //codigo.setText("");
+                as.sleep(1000);
+                
+                txtId.setText("");
+                codigo.setText("");
+                
+            
+            }
+            
+            
+        } catch (SQLException ex) {
+            System.out.println("ERRO ...ERRO ...");
+        }
+    }
+    */
     /*
     public void ler() {
         try {
