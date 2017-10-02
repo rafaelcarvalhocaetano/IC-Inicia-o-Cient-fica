@@ -4,19 +4,7 @@ import arduino.ArduinoSerial;
 
 import controle.acesso.bean.Cadastro;
 import controle.acesso.dao.CadastroDAO;
-import controle.acesso.factory.Conexao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -41,21 +29,26 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     
     public ViewVerticalMain() {
         initComponents();
-       
+        
         DefaultTableModel modelo1 = (DefaultTableModel) tabela.getModel();
         DefaultTableModel modelo2 = (DefaultTableModel) lista.getModel();
         tabela.setRowSorter(new TableRowSorter(modelo1));
         lista.setRowSorter(new TableRowSorter(modelo2));
       
         t.start();
-        ler();
-        //listando.start();
+        //ler();
+        
+        if(true){
+            new Cadastro();
+            controlarAcesso.start();
+            codigo.setText("");
+        }
     }
-    
-/*
-    Thread listando = new Thread(){
+
+    Thread controlarAcesso = new Thread(){
         @Override
         public void run() {
+        
         CadastroDAO dao = new CadastroDAO();
         //Cadastro c = new Cadastro();
         String a = codigo.getText();
@@ -84,7 +77,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         }
         }
     };
-*/
+    /*
     public void ler() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabela.getModel();
@@ -96,13 +89,13 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 model.addRow(new Object[]{
                     ca.getCodigo(),
                     ca.getNome()
-                    
                 });
             }
         } catch (SQLException e) {
             System.out.println("Erro ao LER");
         }
     }
+    */
     
 
 
@@ -139,7 +132,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        lbInformacao = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         info = new javax.swing.JLabel();
         txtCurso = new javax.swing.JTextField();
@@ -206,33 +199,33 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             PControleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btn_buscando)
+                .addGap(267, 267, 267))
             .addGroup(PControleLayout.createSequentialGroup()
-                .addGap(312, 312, 312)
-                .addComponent(buscando, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PControleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
-                        .addComponent(btn_buscando)
-                        .addGap(284, 284, 284))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PControleLayout.createSequentialGroup()
-                        .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(268, 268, 268))))
+                    .addGroup(PControleLayout.createSequentialGroup()
+                        .addGap(240, 240, 240)
+                        .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PControleLayout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(buscando, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PControleLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         PControleLayout.setVerticalGroup(
             PControleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PControleLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(60, 60, 60)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(18, 18, 18)
                 .addComponent(codigo)
-                .addGap(62, 62, 62)
+                .addGap(61, 61, 61)
                 .addComponent(buscando)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addComponent(btn_buscando)
-                .addGap(53, 53, 53))
+                .addGap(102, 102, 102))
         );
 
         PInfor.setBackground(new java.awt.Color(2, 26, 39));
@@ -327,7 +320,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                 .addComponent(btn_cadastrarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_cadProfessores, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(BUSCAR)
                 .addGap(53, 53, 53))
         );
@@ -478,12 +471,12 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         jLabel17.setText("CPF :");
         jLabel17.setOpaque(true);
 
-        lbInformacao.setBackground(new java.awt.Color(27, 64, 90));
-        lbInformacao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbInformacao.setForeground(new java.awt.Color(255, 255, 255));
-        lbInformacao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbInformacao.setText("STATUS DO CADASTRO");
-        lbInformacao.setOpaque(true);
+        status.setBackground(new java.awt.Color(27, 64, 90));
+        status.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        status.setForeground(new java.awt.Color(255, 255, 255));
+        status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        status.setText("STATUS DO CADASTRO");
+        status.setOpaque(true);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-Close Window-30 (2).png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -552,7 +545,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                     .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(PConexaoLayout.createSequentialGroup()
                             .addGap(164, 164, 164)
-                            .addComponent(lbInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(PConexaoLayout.createSequentialGroup()
                             .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(PConexaoLayout.createSequentialGroup()
@@ -569,15 +562,15 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtCurso)
-                                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                                .addComponent(txtNome)
                                 .addComponent(txtRg)
-                                .addComponent(txtCpf)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                                 .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(cancelar)
                                     .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         PConexaoLayout.setVerticalGroup(
             PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -608,10 +601,10 @@ public class ViewVerticalMain extends javax.swing.JFrame {
                         .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)))
                 .addGap(28, 28, 28)
-                .addComponent(lbInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PConexaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelar)
                     .addComponent(salvar))
@@ -625,20 +618,20 @@ public class ViewVerticalMain extends javax.swing.JFrame {
             .addGroup(mainLayout.createSequentialGroup()
                 .addComponent(PInfor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PConexao, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(PConexao, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
             .addGroup(mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainLayout.createSequentialGroup()
-                    .addGap(0, 232, Short.MAX_VALUE)
+                    .addGap(0, 242, Short.MAX_VALUE)
                     .addComponent(PAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(PControle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainLayout.createSequentialGroup()
+                    .addGap(0, 237, Short.MAX_VALUE)
+                    .addComponent(PControle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         mainLayout.setVerticalGroup(
             mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PInfor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(mainLayout.createSequentialGroup()
-                .addComponent(PConexao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 32, Short.MAX_VALUE))
+            .addComponent(PConexao, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
             .addGroup(mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(PAlunos, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
             .addGroup(mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -667,6 +660,21 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     private void btn_alunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_alunoMouseClicked
         PConexao.setVisible(false);
         PAlunos.setVisible(true);
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+            model.setNumRows(0);
+            CadastroDAO dao = new CadastroDAO();
+           
+            for (Cadastro ca : dao.listar()) {
+
+                model.addRow(new Object[]{
+                    ca.getCodigo(),
+                    ca.getNome()
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao LER");
+        }
     }//GEN-LAST:event_btn_alunoMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -677,6 +685,7 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         PConexao.setVisible(true);
         PAlunos.setVisible(false);
         txtCurso.setEnabled(false);
+        
     }//GEN-LAST:event_btn_cadProfessoresMouseClicked
 
     private void btn_cadastrarAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cadastrarAlunoMouseClicked
@@ -697,23 +706,27 @@ public class ViewVerticalMain extends javax.swing.JFrame {
         ca.setCurso(txtCurso.getText());
         ca.setRg(txtRg.getText());
         ca.setCpf(txtCpf.getText());
+        /*
         if (txtId.getText() == null || txtNome.getText() == null || txtCurso.getText() == null || txtCpf.getText() == null) {
             JOptionPane.showMessageDialog(rootPane, "Todos os Campos são obrigatórios", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
             System.out.println("erro aqui");
             return;
         }
+        */
 
         dao.salvar(ca);
-        JOptionPane.showMessageDialog(rootPane, "SALVO COM SUCESSO", "SALVO", JOptionPane.INFORMATION_MESSAGE);
-        System.out.println("SALVO COM SUCESSO");
+        //JOptionPane.showMessageDialog(rootPane, "SALVO COM SUCESSO", "SALVO", JOptionPane.INFORMATION_MESSAGE);
+        //System.out.println("SALVO COM SUCESSO");
 
         //limpando campos
-        txtId.setText("");
+        txtId.setText(" ");
+        as.send(" ");
         txtNome.setText("");
         tipo.getSelectedItem();
         txtCurso.setText("");
         txtRg.setText("");
         txtCpf.setText("");
+        status.setText("Cadastrado com sucesso ...");
 
     }//GEN-LAST:event_salvarMouseClicked
 
@@ -808,10 +821,10 @@ public class ViewVerticalMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel lbInformacao;
     private javax.swing.JTable lista;
     private javax.swing.JPanel main;
     private javax.swing.JLabel salvar;
+    private javax.swing.JLabel status;
     private javax.swing.JTable tabela;
     private javax.swing.JComboBox<String> tipo;
     private javax.swing.JFormattedTextField txtCpf;
