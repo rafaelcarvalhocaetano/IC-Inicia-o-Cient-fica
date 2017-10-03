@@ -25,15 +25,11 @@ void verificar(){
    conteudo;
    
   //Verifica se existe alguma tag próxima ou Lendo
-  if(!mfrc522.PICC_IsNewCardPresent()){
+  if(!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()){
     delay(50);
     return;
   }
-  if(!mfrc522.PICC_ReadCardSerial()){
-     delay(50);
-     return;
-  }
-  
+   
   
   //Faz a leitura e a concatenação dos valores obtidos 
   for (byte i=0; i<mfrc522.uid.size; i++)
@@ -41,9 +37,9 @@ void verificar(){
     conteudo.concat(String(mfrc522.uid.uidByte[i], HEX));
 
   }
-  
- Serial.println(conteudo);
- delay(500);
+  String ver = conteudo.toUpperCase();
+  Serial.println(ver);
+  delay(500);
  /*
   if(conteudo.equalsIgnoreCase(id)){
     digitalWrite(verde, HIGH);
